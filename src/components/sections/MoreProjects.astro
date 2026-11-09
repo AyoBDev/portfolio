@@ -1,0 +1,39 @@
+---
+import Section from './Section.astro';
+import { COPY } from '../../content/copy';
+import { MORE_PROJECTS } from '../../content/projects';
+---
+
+<Section id="projects">
+  <ul class="card-grid">
+    {
+      MORE_PROJECTS.map((project) => (
+        <li class="card project-card">
+          <h3>{project.name}</h3>
+          <p>{project.summary}</p>
+          <ul class="chips">
+            {project.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+          <a class="card-link" href={project.repoUrl}>
+            {COPY.projects.repoLink}
+            <span class="visually-hidden">: {project.name}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .project-card p {
+    margin: 0;
+    flex: 1;
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+import Band from '../brand/Band.astro';
+import { COPY } from '../../content/copy';
+import type { SectionId } from '../../content/types';
+
+interface Props {
+  id: SectionId;
+  /** The hero carries the page h1 instead of a band heading. */
+  showBand?: boolean;
+}
+
+const { id, showBand = true } = Astro.props;
+---
+
+<section id={id} data-section={id} class="section">
+  {showBand && (
+    <div class="section-band">
+      <Band text={COPY.bands[id]} />
+    </div>
+  )}
+  {/* Filled by the quiz (Task 7) with the "matches what you asked" tag. */}
+  <span data-match-tag></span>
+  <slot />
+</section>
+
+<style>
+  .section {
+    padding-block: clamp(48px, 8vw, 96px);
+  }
+  .section-band {
+    /* Leaves room for the band's rotation so its corners never touch the edge. */
+    padding-inline: var(--space-2);
+    margin-bottom: calc(var(--space-6) + var(--space-2));
+  }
+  [data-match-tag]:empty {
+    display: none;
+  }
+</style>

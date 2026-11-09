@@ -1,0 +1,29 @@
+---
+import Section from './Section.astro';
+import { SKILLS } from '../../content/skills';
+---
+
+<Section id="skills">
+  <ul class="card-grid card-grid--wide">
+    {
+      SKILLS.map((group) => (
+        <li class="card skill-group">
+          <h3>{group.name}</h3>
+          <ul class="chips">
+            {group.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .skill-group {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+  }
+</style>

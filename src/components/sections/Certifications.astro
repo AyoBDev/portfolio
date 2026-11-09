@@ -1,0 +1,73 @@
+---
+import Section from './Section.astro';
+import { COPY } from '../../content/copy';
+import { CERTS } from '../../content/certifications';
+import { formatMonth } from '../../lib/dates';
+
+// Small alternating tilts keep the badges looking hand-placed.
+const BADGE_TILTS = [-2, 1.5, -1];
+---
+
+<Section id="certifications">
+  <ul class="cert-grid">
+    {
+      CERTS.map((cert, index) => (
+        <li class="cert-slot">
+          <div class="card cert-badge" style={`--tilt: ${BADGE_TILTS[index % BADGE_TILTS.length]}deg`}>
+            <p class="cert-issuer">{cert.issuer}</p>
+            <h3>{cert.name}</h3>
+            <p class="cert-issued">
+              {COPY.certifications.issued} {formatMonth(cert.issued)}
+            </p>
+            {cert.verifyUrl && (
+              <a class="card-link" href={cert.verifyUrl}>
+                {COPY.certifications.verify}
+                <span class="visually-hidden">: {cert.name}</span>
+              </a>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .cert-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: var(--space-6);
+  }
+  .cert-slot {
+    padding: var(--space-2);
+  }
+  .cert-badge {
+    height: 100%;
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+    border: 6px solid var(--color-navy);
+    transform: rotate(var(--tilt));
+  }
+  .cert-badge p {
+    margin: 0;
+  }
+  .cert-badge h3 {
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+  .cert-issuer {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cert-issued {
+    color: var(--color-slate);
+    font-weight: 600;
+  }
+</style>

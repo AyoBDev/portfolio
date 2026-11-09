@@ -1,15 +1,47 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Band from '../components/brand/Band.astro';
-import Mascot from '../components/brand/Mascot.astro';
+import Hero from '../components/sections/Hero.astro';
+import FeaturedProject from '../components/sections/FeaturedProject.astro';
+import MoreProjects from '../components/sections/MoreProjects.astro';
+import Experience from '../components/sections/Experience.astro';
+import Certifications from '../components/sections/Certifications.astro';
+import Skills from '../components/sections/Skills.astro';
+import Writing from '../components/sections/Writing.astro';
+import Contact from '../components/sections/Contact.astro';
+import { FEATURED } from '../content/projects';
+import { SITE } from '../config/site';
+import { COPY } from '../content/copy';
+
+// Task 5 replaces this with the shared mailto helper.
+const mailtoHref = `mailto:${SITE.email}?subject=${encodeURIComponent(SITE.mailSubject)}`;
 ---
 
 <BaseLayout
-  title="Ayomikun Ayobami — Systems & Cloud Engineer"
-  description="Ayomikun Ayobami is a remote Systems and Cloud Engineer building reliable AWS and Linux infrastructure."
+  title={`${SITE.name} — ${SITE.title}`}
+  description={COPY.seo.description}
 >
-  <h1>Ayomikun Ayobami</h1>
-  <!-- Temporary: Task 4 replaces this page. -->
-  <Band text="Hello" />
-  <Mascot pose="wave" />
+  {/* Static, default-order page: every proof section is in the HTML. The quiz (Task 7) only reorders these sections. */}
+  <main id="main" data-sections>
+    <Hero mailtoHref={mailtoHref} />
+    {FEATURED.map((project) => <FeaturedProject project={project} />)}
+    <MoreProjects />
+    <Experience />
+    <Certifications />
+    <Skills />
+    <Writing />
+    <Contact mailtoHref={mailtoHref} />
+  </main>
 </BaseLayout>
+
+<style>
+  main {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+  @media (min-width: 900px) {
+    main {
+      padding-inline: var(--space-edge);
+    }
+  }
+</style>

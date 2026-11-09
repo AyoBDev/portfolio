@@ -1,0 +1,94 @@
+---
+import Section from './Section.astro';
+import Mascot from '../brand/Mascot.astro';
+import Bubble from '../brand/Bubble.astro';
+import Button from '../brand/Button.astro';
+import Stroke from '../brand/Stroke.astro';
+import { COPY } from '../../content/copy';
+import { SITE } from '../../config/site';
+
+interface Props {
+  mailtoHref: string;
+}
+
+const { mailtoHref } = Astro.props;
+const linkOrder = ['github', 'linkedin', 'upwork', 'medium'] as const;
+---
+
+<Section id="contact">
+  <div class="contact">
+    <div class="contact-mascot">
+      <Bubble text={COPY.mascot.contact} />
+      <Mascot pose="contact" size={180} />
+    </div>
+    <div class="contact-body">
+      <div class="contact-arrow"><Stroke kind="arrow" /></div>
+      <div class="contact-actions">
+        <Button href={mailtoHref} variant="primary">{COPY.buttons.email}</Button>
+      </div>
+      <h3 class="contact-links-heading">{COPY.contact.linksHeading}</h3>
+      <ul class="contact-links">
+        {
+          linkOrder.map((key) => (
+            <li>
+              <a href={SITE.links[key]} rel="noopener">
+                {COPY.contact.links[key]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .contact {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+  .contact-mascot {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-4);
+  }
+  .contact-body {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+  .contact-arrow {
+    width: 120px;
+  }
+  .contact-links-heading {
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  .contact-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .contact-links a {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .contact-links a:hover {
+    background: var(--color-navy);
+    color: var(--color-paper);
+  }
+</style>

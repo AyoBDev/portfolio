@@ -23,6 +23,8 @@ body {
     linear-gradient(var(--color-grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
   background-size: var(--space-grid) var(--space-grid);
+  /* Rotated stickers and bands must never cause sideways scrolling. */
+  overflow-x: clip;
 }
 
 h1,
@@ -41,6 +43,75 @@ h1 {
 
 h2 {
   font-size: clamp(28px, 3.5vw + 1rem, 56px);
+}
+
+h3 {
+  font-size: clamp(20px, 1vw + 1rem, 26px);
+  line-height: 1.1;
+}
+
+/* Hidden on screen, still read by screen readers (e.g. which project a "View code" link opens). */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Shared content surfaces used by several sections. */
+.card {
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-navy);
+  box-shadow: var(--shadow-bubble);
+}
+
+.card-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: var(--space-6);
+}
+
+/* Fewer, wider cards: two per row on desktop instead of three. */
+.card-grid--wide {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+}
+
+.chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chips > li {
+  padding: 2px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-mist);
+  color: var(--color-navy);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.card-link {
+  align-self: flex-start;
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
+.card-link:hover {
+  color: var(--color-navy-soft);
 }
 
 a {

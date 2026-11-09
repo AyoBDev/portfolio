@@ -1,0 +1,178 @@
+---
+import Section from './Section.astro';
+import OlympusCutout from '../cutouts/OlympusCutout.astro';
+import CareOmniCutout from '../cutouts/CareOmniCutout.astro';
+import { COPY } from '../../content/copy';
+import type { FeaturedProject } from '../../content/types';
+
+interface Props {
+  project: FeaturedProject;
+}
+
+const { project } = Astro.props;
+const labels = COPY.featured.labels;
+const isOlympus = project.id === 'olympus-vision';
+---
+
+<Section id={project.id}>
+  <article class="featured">
+    <header class="featured-header">
+      <h3>{project.name}</h3>
+      <p class="featured-tagline">{project.tagline}</p>
+      {
+        'url' in project.repo ? (
+          <a class="featured-repo" href={project.repo.url}>
+            {labels.repo}
+            <span class="visually-hidden">: {project.name}</span>
+          </a>
+        ) : (
+          <p class="featured-private">{project.repo.note}</p>
+        )
+      }
+    </header>
+
+    {
+      project.stats && (
+        <div class="featured-stats">
+          <h4 class="visually-hidden">{labels.stats}</h4>
+          <ul class="stat-list">
+            {project.stats.map((stat) => (
+              <li>
+                <span class="stat-value">{stat.value}</span>
+                <span class="stat-label">{stat.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    <div class="featured-grid">
+      <div class="featured-card">
+        <h4>{labels.problem}</h4>
+        <p>{project.problem}</p>
+        <h4>{labels.built}</h4>
+        <ul>{project.built.map((item) => <li>{item}</li>)}</ul>
+        <h4>{labels.proof}</h4>
+        <ul>{project.proof.map((item) => <li>{item}</li>)}</ul>
+        <h4>{labels.stack}</h4>
+        <ul class="chips">{project.stack.map((item) => <li>{item}</li>)}</ul>
+      </div>
+      <div class="featured-visual">
+        {isOlympus ? <OlympusCutout /> : <CareOmniCutout stats={project.stats ?? []} />}
+      </div>
+    </div>
+
+    {
+      isOlympus && (
+        <>
+          {/* Task 8 fills these with the interactive diagram and incident step. */}
+          <div data-slot="diagram" />
+          <div data-slot="incident" />
+        </>
+      )
+    }
+  </article>
+</Section>
+
+<style>
+  .featured {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+  .featured-header {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+  }
+  .featured-header h3 {
+    font-size: clamp(32px, 2.5vw + 1rem, 52px);
+  }
+  .featured-tagline {
+    margin: 0;
+    max-width: 48ch;
+    font-size: 1.15em;
+    font-weight: 600;
+  }
+  .featured-repo,
+  .featured-private {
+    margin: 0;
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+  }
+  .featured-repo {
+    background: var(--color-navy);
+    color: var(--color-paper);
+    text-decoration: none;
+  }
+  .featured-repo:hover {
+    background: var(--color-navy-soft);
+  }
+  .featured-private {
+    border: 2px dashed var(--color-navy);
+  }
+  .stat-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-navy);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-4);
+  }
+  .stat-list li {
+    display: grid;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(32px, 2vw + 1rem, 48px);
+    line-height: 1.1;
+    color: var(--color-lime);
+  }
+  .stat-label {
+    color: var(--color-paper);
+    font-weight: 600;
+  }
+  .featured-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .featured-grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    }
+    .featured-visual {
+      position: sticky;
+      top: var(--space-6);
+    }
+  }
+  .featured-card {
+    padding: clamp(20px, 3vw, 36px);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+  }
+  .featured-card h4 {
+    margin: var(--space-6) 0 var(--space-2);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .featured-card h4:first-child {
+    margin-top: 0;
+  }
+  .featured-card p {
+    margin: 0;
+  }
+  .featured-card ul:not(.chips) {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+</style>

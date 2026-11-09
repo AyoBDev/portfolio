@@ -22,6 +22,13 @@ export type FeaturedProject = {
   stack: string[];
   repo: { url: string } | { private: true; note: PrivateRepoNote };
   liveUrl?: string;
+  /** Headline numbers shown as a stat row; every figure must come from a cited source. */
+  stats?: ProjectStat[];
+};
+
+export type ProjectStat = {
+  value: string;
+  label: string;
 };
 
 export type ProjectCard = {

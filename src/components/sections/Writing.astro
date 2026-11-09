@@ -1,0 +1,63 @@
+---
+import Section from './Section.astro';
+import { COPY } from '../../content/copy';
+import { ARTICLES } from '../../content/articles';
+import { SITE } from '../../config/site';
+import { formatDay } from '../../lib/dates';
+
+// External links open in the same tab; noopener still guards against window.opener.
+const EXTERNAL_REL = 'noopener';
+---
+
+<Section id="writing">
+  <ul class="card-grid card-grid--wide">
+    {
+      ARTICLES.map((article) => (
+        <li class="card article-card">
+          <p class="article-date">
+            <time datetime={article.date}>{formatDay(article.date)}</time>
+          </p>
+          <h3>{article.title}</h3>
+          <p>{article.summary}</p>
+          <a class="card-link" href={article.url} rel={EXTERNAL_REL}>
+            {COPY.writing.readArticle}
+            <span class="visually-hidden">: {article.title}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="writing-more">
+    <a href={SITE.links.medium} rel={EXTERNAL_REL}>{COPY.writing.moreLink}</a>
+  </p>
+</Section>
+
+<style>
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .article-card p {
+    margin: 0;
+  }
+  .article-card h3 {
+    font-size: 1.15rem;
+    line-height: 1.25;
+    text-transform: none;
+    font-weight: 800;
+  }
+  .article-card > p:last-of-type {
+    flex: 1;
+  }
+  .article-date {
+    color: var(--color-slate);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .writing-more {
+    margin: var(--space-6) 0 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+  }
+</style>

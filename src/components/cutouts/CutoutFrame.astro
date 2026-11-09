@@ -1,0 +1,59 @@
+---
+// Shared shell for the hand-built dashboard cutouts: a white sticker holding a
+// mist "app window" with pill tabs. The whole cutout is one labelled image.
+import Sticker from '../brand/Sticker.astro';
+
+interface Props {
+  label: string;
+  tabs: string[];
+  rotate?: number;
+}
+
+const { label, tabs, rotate = 2 } = Astro.props;
+---
+
+<div class="cutout" role="img" aria-label={label}>
+  <Sticker rotate={rotate}>
+    <div class="cutout-window">
+      <ul class="cutout-tabs">
+        {tabs.map((tab, index) => <li class:list={['cutout-tab', { 'is-active': index === 0 }]}>{tab}</li>)}
+      </ul>
+      <slot />
+    </div>
+  </Sticker>
+</div>
+
+<style>
+  .cutout {
+    /* Padding keeps the rotated sticker inside its column. */
+    padding: var(--space-4);
+  }
+  .cutout-window {
+    background: var(--color-mist);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+  .cutout-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .cutout-tab {
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--color-white);
+    color: var(--color-navy);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .cutout-tab.is-active {
+    background: var(--color-navy);
+    color: var(--color-paper);
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import CutoutFrame from './CutoutFrame.astro';
+import { COPY } from '../../content/copy';
+
+const { label, tabs, live, cameras } = COPY.cutouts.olympus;
+---
+
+<CutoutFrame label={label} tabs={tabs} rotate={2}>
+  <div class="camera-grid">
+    {
+      cameras.map((camera, index) => (
+        <div class:list={['camera-tile', { 'is-hero': index === 0 }]}>
+          <span class="camera-live">{live}</span>
+          <svg class="camera-icon" viewBox="0 0 48 32" fill="none" aria-hidden="true" focusable="false">
+            <rect x="2" y="6" width="30" height="20" rx="4" />
+            <path d="M32 13L46 6V26L32 19" />
+          </svg>
+          <span class="camera-name">{camera}</span>
+        </div>
+      ))
+    }
+  </div>
+</CutoutFrame>
+
+<style>
+  .camera-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+  .camera-tile {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-sm);
+    background: var(--color-navy-deep);
+    /* Hairline grid suggests a video frame without a fake picture. */
+    background-image:
+      linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+    background-size: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+  }
+  .camera-tile.is-hero {
+    grid-column: span 2;
+    aspect-ratio: 16 / 7;
+  }
+  .camera-icon {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 40px;
+    transform: translate(-50%, -50%);
+    stroke: var(--color-navy-soft);
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+  .camera-live {
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--color-lime);
+    color: var(--color-navy);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .camera-name {
+    color: var(--color-paper);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+</style>

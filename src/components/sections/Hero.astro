@@ -1,0 +1,148 @@
+---
+import Section from './Section.astro';
+import Sticker from '../brand/Sticker.astro';
+import Mascot from '../brand/Mascot.astro';
+import Button from '../brand/Button.astro';
+import Stroke from '../brand/Stroke.astro';
+import { COPY } from '../../content/copy';
+import { CERTS } from '../../content/certifications';
+import { SITE } from '../../config/site';
+
+interface Props {
+  mailtoHref: string;
+}
+
+const HERO_CERT_KEYWORD = 'Professional';
+const { mailtoHref } = Astro.props;
+const heroCert = CERTS.find((cert) => cert.name.includes(HERO_CERT_KEYWORD));
+---
+
+<Section id="hero" showBand={false}>
+  <div class="hero">
+    <div class="hero-text">
+      <p class="hero-kicker">{COPY.bands.hero}</p>
+      <h1 class="hero-name">{SITE.name}</h1>
+      <div class="hero-underline"><Stroke kind="underline" /></div>
+      <p class="hero-title">
+        <span>{SITE.title}</span>
+        <span class="hero-location">{SITE.location}</span>
+      </p>
+      <p class="hero-headline">{COPY.hero.headline}</p>
+      <p class="hero-credential">{COPY.hero.credentialLine}</p>
+      <div class="contact-actions">
+        <Button href={mailtoHref} variant="primary">{COPY.buttons.email}</Button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      {
+        heroCert && (
+          <div class="hero-badge">
+            <Sticker rotate={-3}>
+              <p class="badge">
+                <span class="badge-kicker">
+                  {heroCert.issuer} · {COPY.hero.certBadgeLabel}
+                </span>
+                <span class="badge-name">{heroCert.name}</span>
+              </p>
+            </Sticker>
+          </div>
+        )
+      }
+      <Mascot pose="wave" size={200} />
+    </div>
+  </div>
+</Section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    }
+  }
+  .hero-text {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+  .hero-text p {
+    margin: 0;
+  }
+  .hero-kicker {
+    padding: 4px 14px;
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+  }
+  .hero-name {
+    max-width: 10ch;
+  }
+  .hero-underline {
+    width: min(260px, 60%);
+    margin-top: calc(var(--space-2) * -1);
+  }
+  .hero-title {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    align-items: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(18px, 1rem + 0.8vw, 26px);
+    text-transform: uppercase;
+  }
+  .hero-location {
+    padding: 2px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--color-navy);
+    color: var(--color-lime);
+    font-size: 0.7em;
+  }
+  .hero-headline {
+    max-width: 30ch;
+    font-size: clamp(20px, 1rem + 1vw, 28px);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .hero-credential {
+    max-width: 52ch;
+  }
+  .hero-visual {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+  .hero-badge {
+    padding: var(--space-4);
+    max-width: 280px;
+  }
+  .badge {
+    margin: 0;
+    padding: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+    color: var(--color-navy);
+  }
+  .badge-kicker {
+    color: var(--color-slate);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .badge-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+</style>

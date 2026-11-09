@@ -16,10 +16,15 @@ export type DiagramNodeId =
   | 'dashboard';
 
 export const COPY = {
+  seo: {
+    description: `${SITE.name} is a remote Systems and Cloud Engineer building reliable AWS and Linux infrastructure.`,
+  },
+
   hero: {
     headline: 'I design and run the infrastructure behind real products.',
     credentialLine:
       'AWS Solutions Architect – Professional · Solution Engineer at an AWS Advanced Tier Partner',
+    certBadgeLabel: 'Certified',
     intro: `${SITE.name} is a ${SITE.title}. Two products shipped solo, three AWS and Huawei certifications, and I work ${SITE.location.toLowerCase()}.`,
   },
 
@@ -126,5 +131,60 @@ export const COPY = {
 
   writing: {
     moreLink: 'More on Medium',
+    readArticle: 'Read on Medium',
+  },
+
+  featured: {
+    labels: {
+      problem: 'The problem',
+      built: 'What I built',
+      proof: 'Engineering proof',
+      stack: 'Stack',
+      repo: 'Code on GitHub',
+      stats: 'In production',
+    },
+  },
+
+  // Illustrative dashboard cutouts. Every name and ID here is made up.
+  cutouts: {
+    olympus: {
+      label: 'Illustration of the Olympus Vision dashboard with three live camera tiles',
+      tabs: ['Cameras', 'Recordings', 'Alerts'],
+      live: 'Live',
+      cameras: ['Front door', 'Parking lot', 'Back entrance'],
+    },
+    careomni: {
+      label: 'Illustration of the CareOmni dashboard with made-up sample visits',
+      tabs: ['Dashboard', 'Clients', 'Shifts'],
+      visitsTitle: "Today's visits",
+      visits: [
+        { name: 'Jane Doe', id: 'MED-000123', time: '9:00 to 13:00' },
+        { name: 'John Smith', id: 'MED-000124', time: '14:00 to 18:00' },
+      ],
+    },
+  },
+
+  projects: {
+    repoLink: 'View code',
+  },
+
+  experience: {
+    present: 'Present',
+    educationHeading: 'Education',
+  },
+
+  certifications: {
+    issued: 'Issued',
+    verify: 'Verify',
+  },
+
+  contact: {
+    linksHeading: 'Elsewhere',
+    links: {
+      github: 'GitHub',
+      linkedin: 'LinkedIn',
+      upwork: 'Upwork',
+      medium: 'Medium',
+    },
   },
 };

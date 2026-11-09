@@ -1,0 +1,94 @@
+---
+import CutoutFrame from './CutoutFrame.astro';
+import { COPY } from '../../content/copy';
+import type { ProjectStat } from '../../content/types';
+
+interface Props {
+  /** Only the real aggregate numbers; the first becomes the lime hero card. */
+  stats: ProjectStat[];
+}
+
+const CUTOUT_STAT_COUNT = 3;
+const { stats } = Astro.props;
+const { label, tabs, visitsTitle, visits } = COPY.cutouts.careomni;
+---
+
+<CutoutFrame label={label} tabs={tabs} rotate={-2}>
+  <div class="stat-row">
+    {
+      stats.slice(0, CUTOUT_STAT_COUNT).map((stat, index) => (
+        <div class:list={['stat-card', { 'is-hero': index === 0 }]}>
+          <span class="stat-value">{stat.value}</span>
+          <span class="stat-label">{stat.label}</span>
+        </div>
+      ))
+    }
+  </div>
+  <div class="visits">
+    <span class="visits-title">{visitsTitle}</span>
+    {
+      visits.map((visit) => (
+        <div class="visit">
+          <span class="visit-name">{visit.name}</span>
+          <span class="visit-meta">{visit.id}</span>
+          <span class="visit-meta">{visit.time}</span>
+        </div>
+      ))
+    }
+  </div>
+</CutoutFrame>
+
+<style>
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+  .stat-card {
+    background: var(--color-white);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    display: grid;
+  }
+  .stat-card.is-hero {
+    background: var(--color-lime);
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.4rem;
+    line-height: 1.1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .visits {
+    background: var(--color-white);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    display: grid;
+    gap: 6px;
+  }
+  .visits-title {
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+  .visit {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 var(--space-2);
+    padding-top: 6px;
+    border-top: 1px solid var(--color-line);
+    font-size: 0.75rem;
+  }
+  .visit-name {
+    font-weight: 600;
+    grid-row: span 2;
+    align-self: center;
+  }
+  .visit-meta {
+    color: var(--color-slate);
+    text-align: right;
+  }
+</style>

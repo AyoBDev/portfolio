@@ -72,6 +72,13 @@ export const FEATURED: FeaturedProject[] = [
     ],
     stack: ['PostgreSQL', 'Background workers', 'Encryption service', 'Audit log', 'Automated tests'],
     repo: { private: true, note: 'Private repo · walkthrough on request' },
+    // From the CareOmni pitch deck (clients, caregivers, shifts) and LinkedIn (payroll).
+    stats: [
+      { value: '227', label: 'clients' },
+      { value: '194', label: 'caregivers' },
+      { value: '470', label: 'active shifts' },
+      { value: '70%', label: 'less payroll time' },
+    ],
   },
 ];
 

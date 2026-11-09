@@ -1,0 +1,118 @@
+---
+import Section from './Section.astro';
+import { COPY } from '../../content/copy';
+import { ROLES, EDUCATION } from '../../content/experience';
+import { formatMonthRange } from '../../lib/dates';
+---
+
+<Section id="experience">
+  <ol class="timeline">
+    {
+      ROLES.map((role) => (
+        <li class="card timeline-item">
+          <p class="timeline-dates">
+            {formatMonthRange(role.start, role.end, COPY.experience.present)}
+          </p>
+          <h3>{role.title}</h3>
+          <p class="timeline-org">
+            {role.org}
+            {role.label && <span class="timeline-label">{role.label}</span>}
+          </p>
+          {role.points.length > 0 && (
+            <ul class="chips">
+              {role.points.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="education">
+    <h3>{COPY.experience.educationHeading}</h3>
+    <div class="card education-card">
+      <p class="education-school">{EDUCATION.school}</p>
+      <p>{EDUCATION.degree}</p>
+      <p class="education-grade">{EDUCATION.grade}</p>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 var(--space-6);
+    border-left: 4px solid var(--color-navy);
+    display: grid;
+    gap: var(--space-6);
+    max-width: 860px;
+  }
+  .timeline-item {
+    position: relative;
+    display: grid;
+    gap: var(--space-2);
+  }
+  /* The dot sits on the timeline rail. */
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    /* Centres the 16px dot on the 4px rail. */
+    left: calc(var(--space-6) * -1 - 10px);
+    top: 28px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-navy);
+    border: 3px solid var(--color-lime);
+  }
+  .timeline-item p {
+    margin: 0;
+  }
+  .timeline-item h3 {
+    font-size: clamp(20px, 1rem + 0.8vw, 28px);
+  }
+  .timeline-dates {
+    color: var(--color-slate);
+    font-weight: 600;
+  }
+  .timeline-org {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+  }
+  .timeline-label {
+    padding: 2px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--color-lime);
+    color: var(--color-navy);
+    font-size: 0.85rem;
+  }
+  .education {
+    margin-top: clamp(32px, 5vw, 56px);
+    display: grid;
+    gap: var(--space-4);
+    max-width: 860px;
+  }
+  .education-card p {
+    margin: 0;
+  }
+  .education-school {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.2rem;
+  }
+  .education-grade {
+    display: inline-block;
+    margin-top: var(--space-2) !important;
+    padding: 2px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--color-navy);
+    color: var(--color-lime);
+    font-weight: 600;
+  }
+</style>
