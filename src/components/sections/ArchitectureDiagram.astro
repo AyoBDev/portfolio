@@ -199,8 +199,10 @@ const { title, prompt, nodes } = COPY.diagramUi;
     display: none;
   }
 
-  /* Wider screens: a 4 x 2 snake with SVG arrows behind the buttons. */
-  @media (min-width: 601px) {
+  /* Wider screens: a 4 x 2 snake with SVG arrows behind the buttons. Below
+     761px a cell is too short for a node whose name wraps to two lines plus a
+     detail line, so narrower screens keep the vertical flow. */
+  @media (min-width: 761px) {
     .diagram-canvas {
       aspect-ratio: 400 / 140;
     }
