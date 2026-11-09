@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Fill values mirror the brand tokens (white, paper, navy); an SVG used as an image cannot read CSS variables. -->
   <circle cx="100" cy="100" r="98" fill="#ffffff"/>
   <circle cx="100" cy="100" r="90" fill="#f7fafc"/>
   <circle cx="100" cy="78" r="30" fill="#102c40"/>
