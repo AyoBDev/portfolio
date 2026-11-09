@@ -3,14 +3,15 @@ interface Props {
   href?: string;
   variant: 'primary' | 'ghost';
   type?: 'button';
+  [attribute: `data-${string}`]: string | undefined;
 }
 
-const { href, variant, type = 'button' } = Astro.props;
+const { href, variant, type = 'button', ...extraAttributes } = Astro.props;
 const Element = href ? 'a' : 'button';
 const elementProps = href ? { href } : { type };
 ---
 
-<Element class={`button button--${variant}`} {...elementProps}>
+<Element class={`button button--${variant}`} {...elementProps} {...extraAttributes}>
   <slot />
 </Element>
 

@@ -4,6 +4,7 @@ import { SITE } from '../config/site';
 import { SITE_URL } from '../../site-url.mjs';
 import { buildPersonJsonLd } from '../lib/structuredData';
 import { CERTS } from '../content/certifications';
+import StickyEmail from '../components/contact/StickyEmail.astro';
 
 interface Props {
   title: string;
@@ -45,6 +46,20 @@ const FONTS_URL =
     <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
   </head>
   <body>
+    <StickyEmail />
     <slot />
   </body>
 </html>
+
+<style is:global>
+  /* Reserve room for the fixed email button so it never covers content. */
+  body {
+    padding-bottom: 72px;
+  }
+  @media (min-width: 900px) {
+    body {
+      padding-bottom: 0;
+      padding-top: 48px;
+    }
+  }
+</style>

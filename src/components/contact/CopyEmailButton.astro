@@ -1,0 +1,41 @@
+---
+import Button from '../brand/Button.astro';
+import { COPY } from '../../content/copy';
+import { SITE } from '../../config/site';
+---
+
+<!-- Self-contained: src/scripts/copy-email.ts wires each [data-copy-email-root] on its own. -->
+<div class="copy-email" data-copy-email-root>
+  <Button variant="ghost" data-copy-email={SITE.email}>{COPY.buttons.copyEmail}</Button>
+  <span class="copy-email-text" data-email-text>{SITE.email}</span>
+  <span
+    class="copy-email-status"
+    role="status"
+    aria-live="polite"
+    data-copied-text={COPY.buttons.copied}
+    data-fallback-mac={COPY.buttons.copyFallbackMac}
+    data-fallback-other={COPY.buttons.copyFallbackOther}></span>
+</div>
+
+<script>
+  import '../../scripts/copy-email';
+</script>
+
+<style>
+  .copy-email {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+  }
+  .copy-email-text {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+  .copy-email-status {
+    flex-basis: 100%;
+    min-height: 1.4em;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+</style>

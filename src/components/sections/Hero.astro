@@ -7,13 +7,11 @@ import Stroke from '../brand/Stroke.astro';
 import { COPY } from '../../content/copy';
 import { CERTS } from '../../content/certifications';
 import { SITE } from '../../config/site';
+import { buildMailtoUrl } from '../../lib/mailto';
+import CopyEmailButton from '../contact/CopyEmailButton.astro';
 
-interface Props {
-  mailtoHref: string;
-}
-
+const mailtoHref = buildMailtoUrl(SITE.email, SITE.mailSubject);
 const HERO_CERT_KEYWORD = 'Professional';
-const { mailtoHref } = Astro.props;
 const heroCert = CERTS.find((cert) => cert.name.includes(HERO_CERT_KEYWORD));
 ---
 
@@ -31,6 +29,7 @@ const heroCert = CERTS.find((cert) => cert.name.includes(HERO_CERT_KEYWORD));
       <p class="hero-credential">{COPY.hero.credentialLine}</p>
       <div class="contact-actions">
         <Button href={mailtoHref} variant="primary">{COPY.buttons.email}</Button>
+        <CopyEmailButton />
       </div>
     </div>
     <div class="hero-visual">

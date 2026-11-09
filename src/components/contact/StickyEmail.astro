@@ -1,0 +1,47 @@
+---
+import { COPY } from '../../content/copy';
+import { SITE } from '../../config/site';
+import { buildMailtoUrl } from '../../lib/mailto';
+
+const mailtoHref = buildMailtoUrl(SITE.email, SITE.mailSubject);
+---
+
+<!-- Lives outside <main> so it stays on screen while scrolling and during the quiz. -->
+<div class="sticky-email" data-sticky-email>
+  <a class="sticky-email-link" href={mailtoHref}>{COPY.buttons.stickyEmail}</a>
+</div>
+
+<style>
+  .sticky-email {
+    position: fixed;
+    z-index: 50;
+    right: var(--space-4);
+    bottom: var(--space-4);
+  }
+  .sticky-email-link {
+    display: inline-block;
+    padding: var(--space-2) var(--space-6);
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius-pill);
+    background: var(--color-lime);
+    color: var(--color-navy);
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: var(--shadow-bubble);
+  }
+  /* Desktop: a slim top bar, so it never sits on top of content. */
+  @media (min-width: 900px) {
+    .sticky-email {
+      inset: 0 0 auto 0;
+      display: flex;
+      justify-content: flex-end;
+      padding: var(--space-2) var(--space-edge);
+      background: var(--color-navy);
+    }
+    .sticky-email-link {
+      padding: 4px var(--space-4);
+      box-shadow: none;
+    }
+  }
+</style>
