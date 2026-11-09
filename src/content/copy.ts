@@ -123,6 +123,31 @@ export const COPY = {
       'The multi-tenant Fastify API on ECS Fargate serves the dashboard, with RS256 JWT roles for Super Admin, Org Admin and Viewer.',
   } satisfies Record<DiagramNodeId, string>,
 
+  // Labels drawn on the clickable architecture diagram.
+  diagramUi: {
+    title: 'How the pipeline fits together',
+    prompt: 'Pick any box in the diagram to see what that part does.',
+    nodes: {
+      camera: { name: 'IP camera', detail: 'RTSP stream' },
+      edge: { name: 'Edge device', detail: 'Raspberry Pi · X.509' },
+      kvs: { name: 'Kinesis Video Streams', detail: 'Live HLS' },
+      storage: { name: 'S3 + Glacier', detail: 'Glacier after 30 days' },
+      rekognition: { name: 'Rekognition', detail: 'Face collections' },
+      lambda: { name: 'Lambda', detail: 'Face + archive pipelines' },
+      ses: { name: 'SES alert', detail: 'Unknown-face email' },
+      dashboard: { name: 'Dashboard', detail: 'ECS Fargate · RDS · Redis' },
+    } satisfies Record<DiagramNodeId, { name: string; detail: string }>,
+  },
+
+  incidentUi: {
+    title: 'A real outage. What would you do?',
+    fixTitle: 'What actually fixed it',
+    feedback: {
+      correct: "Exactly. The service was fine. The name just didn't resolve.",
+      wrong: "Close, but the service was healthy. NXDOMAIN means the name itself didn't resolve, so DNS comes first.",
+    },
+  },
+
   incident: {
     question:
       'api.olympusvisions.com returns NXDOMAIN after an AWS account move. What do you check first?',

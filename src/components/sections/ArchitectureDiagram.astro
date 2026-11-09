@@ -1,0 +1,269 @@
+---
+import { COPY } from '../../content/copy';
+import type { DiagramNodeId } from '../../content/copy';
+
+// Flow order: this is the DOM order, the reading order and the mobile order.
+const NODE_ORDER: DiagramNodeId[] = [
+  'camera',
+  'edge',
+  'kvs',
+  'storage',
+  'rekognition',
+  'lambda',
+  'ses',
+  'dashboard',
+];
+
+// Connectors in a 400 x 140 viewBox laid over a 4-column, 2-row grid, so one
+// unit is 1/400 of the canvas width at every screen size. Cell centres sit at
+// x = 50/150/250/350. Each node button is 72% of its cell wide, so horizontal
+// arrows end 36 units from a centre: on the node's edge. Row one is centred
+// on y = 35; row two buttons start at y = 82 (see the row-two padding below).
+const CONNECTORS: string[] = [
+  'M 86 36 Q 100 32 112 35', // camera -> edge
+  'M 186 36 Q 200 32 212 35', // edge -> kvs
+  'M 286 36 Q 300 32 312 35', // kvs -> storage
+  'M 250 52 L 250 60 Q 250 70 262 70 Q 300 73 338 70 Q 350 70 350 80', // kvs -> rekognition, down past storage
+  'M 314 93 Q 300 96 288 92', // rekognition -> lambda
+  'M 214 93 Q 200 96 188 92', // lambda -> ses
+  'M 114 93 Q 100 96 88 92', // ses -> dashboard
+];
+
+const { title, prompt, nodes } = COPY.diagramUi;
+---
+
+<div class="diagram" data-diagram>
+  <h4 class="diagram-title">{title}</h4>
+
+  <div class="diagram-canvas">
+    <svg class="diagram-lines" viewBox="0 0 400 140" aria-hidden="true" focusable="false">
+      <defs>
+        <marker
+          id="diagram-arrow"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="5"
+          markerHeight="5"
+          orient="auto-start-reverse"
+        >
+          <path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </marker>
+      </defs>
+      {CONNECTORS.map((d) => <path d={d} marker-end="url(#diagram-arrow)" />)}
+    </svg>
+
+    <ul class="diagram-nodes">
+      {
+        NODE_ORDER.map((id) => (
+          <li class={`diagram-cell diagram-cell--${id}`}>
+            <button type="button" class="diagram-node" data-node={id} aria-controls="diagram-detail" aria-pressed="false">
+              <span class="diagram-node-name">{nodes[id].name}</span>
+              <span class="diagram-node-detail">{nodes[id].detail}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <p id="diagram-detail" class="diagram-detail" aria-live="polite" hidden>
+    {prompt}
+  </p>
+
+  <!-- The single source of node roles. Always in the HTML; the script reads it and hides it once the diagram is interactive. -->
+  <dl class="diagram-roles" data-diagram-roles>
+    {
+      NODE_ORDER.map((id) => (
+        <div class="diagram-role">
+          <dt>{nodes[id].name}</dt>
+          <dd data-node-role={id}>{COPY.diagram[id]}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</div>
+
+<script>
+  import '../../scripts/diagram';
+</script>
+
+<style>
+  .diagram {
+    display: grid;
+    gap: var(--space-4);
+    padding: clamp(20px, 3vw, 36px);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+  }
+  .diagram-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .diagram-canvas {
+    position: relative;
+  }
+  .diagram-lines {
+    display: none;
+  }
+  .diagram-nodes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+  .diagram-cell {
+    position: relative;
+    display: grid;
+  }
+  /* Mobile: a hand-drawn vertical connector between stacked nodes. */
+  .diagram-cell + .diagram-cell::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: calc(-1 * var(--space-6));
+    height: var(--space-6);
+    border-left: 3px solid var(--color-navy);
+  }
+
+  .diagram-node {
+    display: grid;
+    gap: 2px;
+    padding: 10px 12px;
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+    color: var(--color-navy);
+    font-family: var(--font-body);
+    text-align: center;
+    cursor: pointer;
+    transition:
+      background-color 160ms ease,
+      transform 160ms ease;
+  }
+  .diagram-node:hover {
+    background: var(--color-mist);
+  }
+  .diagram-node:focus-visible {
+    outline: 3px solid var(--color-navy);
+    outline-offset: 3px;
+  }
+  .diagram-node[aria-pressed='true'] {
+    background: var(--color-lime);
+    box-shadow: 0 6px 0 var(--color-navy);
+    transform: translateY(-3px);
+  }
+  .diagram-node-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+  .diagram-node-detail {
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .diagram-detail {
+    margin: 0;
+    padding: var(--space-4);
+    border-radius: var(--radius-sm);
+    background: var(--color-mist);
+    min-height: 3.5em;
+  }
+  .diagram-detail strong {
+    font-family: var(--font-display);
+  }
+
+  .diagram-roles {
+    margin: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .diagram-role dt {
+    font-family: var(--font-display);
+    font-weight: 800;
+  }
+  .diagram-role dd {
+    margin: 0;
+  }
+  .diagram.is-interactive .diagram-roles {
+    display: none;
+  }
+
+  /* Wider screens: a 4 x 2 snake with SVG arrows behind the buttons. */
+  @media (min-width: 601px) {
+    .diagram-canvas {
+      aspect-ratio: 400 / 140;
+    }
+    .diagram-lines {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--color-navy);
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+    }
+    .diagram-lines path {
+      vector-effect: non-scaling-stroke;
+    }
+    .diagram-nodes {
+      position: relative;
+      height: 100%;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 0;
+    }
+    .diagram-cell {
+      place-items: center;
+    }
+    .diagram-cell + .diagram-cell::before {
+      content: none;
+    }
+    .diagram-node {
+      width: 72%;
+      padding: 8px 6px;
+    }
+    .diagram-node-name {
+      font-size: clamp(0.72rem, 0.5rem + 0.6vw, 0.95rem);
+    }
+    .diagram-node-detail {
+      font-size: clamp(0.66rem, 0.45rem + 0.45vw, 0.8rem);
+    }
+    /* Row two runs right to left, so the flow reads as one continuous line.
+       Its buttons hang from a fixed top edge (12% of the cell width = 12 units,
+       so y = 82) where the arrow from Kinesis lands. */
+    .diagram-cell--rekognition,
+    .diagram-cell--lambda,
+    .diagram-cell--ses,
+    .diagram-cell--dashboard {
+      align-items: start;
+      padding-top: 12%;
+    }
+    .diagram-cell--rekognition {
+      grid-area: 2 / 4;
+    }
+    .diagram-cell--lambda {
+      grid-area: 2 / 3;
+    }
+    .diagram-cell--ses {
+      grid-area: 2 / 2;
+    }
+    .diagram-cell--dashboard {
+      grid-area: 2 / 1;
+    }
+  }
+</style>

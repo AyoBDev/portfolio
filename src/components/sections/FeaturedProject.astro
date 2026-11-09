@@ -2,6 +2,8 @@
 import Section from './Section.astro';
 import OlympusCutout from '../cutouts/OlympusCutout.astro';
 import CareOmniCutout from '../cutouts/CareOmniCutout.astro';
+import ArchitectureDiagram from './ArchitectureDiagram.astro';
+import IncidentStep from './IncidentStep.astro';
 import { COPY } from '../../content/copy';
 import type { FeaturedProject } from '../../content/types';
 
@@ -66,9 +68,12 @@ const isOlympus = project.id === 'olympus-vision';
     {
       isOlympus && (
         <>
-          {/* Task 8 fills these with the interactive diagram and incident step. */}
-          <div data-slot="diagram" />
-          <div data-slot="incident" />
+          <div data-slot="diagram">
+            <ArchitectureDiagram />
+          </div>
+          <div data-slot="incident">
+            <IncidentStep />
+          </div>
         </>
       )
     }
