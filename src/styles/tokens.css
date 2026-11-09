@@ -26,6 +26,17 @@
   --space-edge: 56px;
   --space-grid: 60px;
 
+  /* Room reserved for the fixed email button: bottom pill on mobile, top bar on desktop. */
+  --sticky-offset-top: 0px;
+  --sticky-offset-bottom: 72px;
+
   --font-display: 'Poppins', system-ui, sans-serif;
   --font-body: 'Urbanist', system-ui, sans-serif;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --sticky-offset-top: 48px;
+    --sticky-offset-bottom: 0px;
+  }
 }

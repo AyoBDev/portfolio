@@ -45,3 +45,12 @@ test('sticky email button is visible after scrolling to any section', async ({ p
     await expect(page.locator('[data-sticky-email] a[href^="mailto:"]')).toBeInViewport();
   }
 });
+
+test('anchor target lands below the sticky bar on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/?skip=1#contact');
+  await page.waitForTimeout(300);
+  const barBottom = await page.locator('[data-sticky-email]').evaluate((el) => el.getBoundingClientRect().bottom);
+  const headingTop = await page.locator('#contact h2').first().evaluate((el) => el.getBoundingClientRect().top);
+  expect(headingTop).toBeGreaterThanOrEqual(barBottom);
+});

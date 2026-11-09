@@ -52,14 +52,14 @@ const FONTS_URL =
 </html>
 
 <style is:global>
-  /* Reserve room for the fixed email button so it never covers content. */
-  body {
-    padding-bottom: 72px;
+  /* Reserve room for the fixed email button so it never covers content,
+     and keep anchor / scrollIntoView targets clear of it. */
+  html {
+    scroll-padding-top: var(--sticky-offset-top);
+    scroll-padding-bottom: var(--sticky-offset-bottom);
   }
-  @media (min-width: 900px) {
-    body {
-      padding-bottom: 0;
-      padding-top: 48px;
-    }
+  body {
+    padding-top: var(--sticky-offset-top);
+    padding-bottom: var(--sticky-offset-bottom);
   }
 </style>
