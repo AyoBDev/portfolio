@@ -8,6 +8,7 @@ import Certifications from '../components/sections/Certifications.astro';
 import Skills from '../components/sections/Skills.astro';
 import Writing from '../components/sections/Writing.astro';
 import Contact from '../components/sections/Contact.astro';
+import Quiz from '../components/quiz/Quiz.astro';
 import { FEATURED } from '../content/projects';
 import { SITE } from '../config/site';
 import { COPY } from '../content/copy';
@@ -18,7 +19,9 @@ import { COPY } from '../content/copy';
   title={`${SITE.name} — ${SITE.title}`}
   description={COPY.seo.description}
 >
-  {/* Static, default-order page: every proof section is in the HTML. The quiz (Task 7) only reorders these sections. */}
+  {/* The quiz sits above <main> so its result card stays on top of the reordered page. */}
+  <Quiz />
+  {/* Static, default-order page: every proof section is in the HTML. The quiz only reorders these sections. */}
   <main id="main" data-sections>
     <Hero />
     {FEATURED.map((project) => <FeaturedProject project={project} />)}

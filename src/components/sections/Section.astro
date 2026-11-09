@@ -32,6 +32,18 @@ const { id, showBand = true } = Astro.props;
     padding-inline: var(--space-2);
     margin-bottom: calc(var(--space-6) + var(--space-2));
   }
+  /* Filled in by the quiz result: a small navy pill so a matched section stands out. */
+  [data-match-tag] {
+    display: inline-block;
+    margin-bottom: var(--space-4);
+    padding: 2px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--color-navy);
+    color: var(--color-lime);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
   [data-match-tag]:empty {
     display: none;
   }

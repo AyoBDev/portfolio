@@ -1,0 +1,270 @@
+---
+import Mascot from '../brand/Mascot.astro';
+import Bubble from '../brand/Bubble.astro';
+import Button from '../brand/Button.astro';
+import { COPY } from '../../content/copy';
+import { SITE } from '../../config/site';
+import { buildMailtoUrl } from '../../lib/mailto';
+
+const QUESTION_COUNT = 2;
+const MASCOT_SIZE = 120;
+const mailtoHref = buildMailtoUrl(SITE.email, SITE.mailSubject);
+
+// Option buttons follow the order of the COPY option keys; data-answer carries the answer value.
+const questions = [
+  { step: 'focus', copy: COPY.quiz.focus, mascotText: COPY.mascot.focus },
+  { step: 'proof', copy: COPY.quiz.proof, mascotText: COPY.mascot.proof },
+] as const;
+---
+
+<!--
+  Hidden in the HTML so no-JS visitors and crawlers get the full page.
+  Only the quiz controller removes `hidden`.
+-->
+<section class="quiz" data-quiz hidden aria-label={COPY.quiz.regionLabel}>
+  <script is:inline>
+    // Runs before <main> is parsed so JS visitors never see a flash of the full page.
+    // The controller removes the class again for ?skip=1-style exits and shared results.
+    if (new URLSearchParams(location.search).get('skip') !== '1') {
+      document.documentElement.classList.add('quiz-active');
+    }
+  </script>
+
+  <div
+    class="quiz-progress"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax={QUESTION_COUNT}
+    aria-valuenow="1"
+    aria-label={COPY.quiz.progressLabel(1, QUESTION_COUNT)}
+    data-progress
+    hidden
+  >
+    <div class="quiz-progress-fill" data-progress-fill></div>
+  </div>
+
+  <div class="quiz-step" data-step="intro">
+    <div class="quiz-guide">
+      <Mascot pose="wave" size={MASCOT_SIZE} />
+      <Bubble text={COPY.mascot.intro} />
+    </div>
+    <h2 tabindex="-1">{SITE.name}</h2>
+    <p class="quiz-title">{SITE.title}</p>
+    <p class="quiz-credential">{COPY.hero.credentialLine}</p>
+    <p class="quiz-lead">{COPY.hero.headline}</p>
+    <div class="quiz-actions">
+      <Button variant="primary" data-start="">{COPY.buttons.start}</Button>
+      <Button variant="ghost" data-skip="">{COPY.buttons.skip}</Button>
+    </div>
+  </div>
+
+  {
+    questions.map(({ step, copy, mascotText }) => (
+      <div class="quiz-step" data-step={step} hidden>
+        <div class="quiz-guide">
+          <Mascot pose="thinking" size={MASCOT_SIZE} />
+          <Bubble text={mascotText} />
+        </div>
+        <h2 tabindex="-1">{copy.question}</h2>
+        <div class="quiz-options">
+          {Object.entries(copy.options).map(([value, label]) => (
+            <button type="button" class="quiz-option" data-answer={value}>
+              {label}
+            </button>
+          ))}
+        </div>
+        <div class="quiz-actions quiz-actions--secondary">
+          <button type="button" class="quiz-text-button" data-back>
+            {COPY.buttons.back}
+          </button>
+          <button type="button" class="quiz-text-button" data-skip>
+            {COPY.buttons.skip}
+          </button>
+        </div>
+      </div>
+    ))
+  }
+
+  <div class="quiz-step" data-step="result" hidden>
+    <div class="quiz-guide">
+      <Mascot pose="celebrating" size={MASCOT_SIZE} />
+      <Bubble text={COPY.mascot.result} />
+    </div>
+    <h2 tabindex="-1">{COPY.quiz.resultTitle}</h2>
+    <p class="quiz-pitch" data-pitch></p>
+    <div class="quiz-actions">
+      <Button href={mailtoHref} variant="primary">{COPY.buttons.email}</Button>
+      <Button variant="ghost" data-back="">{COPY.buttons.back}</Button>
+      <Button variant="ghost" data-start-over="">{COPY.buttons.startOver}</Button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/quiz-controller';
+</script>
+
+<style is:global>
+  /* The quiz takes over the screen; the sticky email lives outside <main> and stays visible. */
+  html.quiz-active main {
+    display: none;
+  }
+</style>
+
+<style>
+  .quiz {
+    max-width: 760px;
+    margin-inline: auto;
+    padding: clamp(32px, 6vw, 72px) var(--space-4);
+  }
+  .quiz[hidden],
+  .quiz-step[hidden],
+  .quiz-progress[hidden] {
+    display: none;
+  }
+
+  .quiz-progress {
+    height: 16px;
+    margin-bottom: var(--space-6);
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius-pill);
+    background: var(--color-white);
+    overflow: hidden;
+  }
+  .quiz-progress-fill {
+    width: 50%;
+    height: 100%;
+    border-radius: var(--radius-pill);
+    background: var(--color-navy);
+    transition: width 200ms ease-out;
+  }
+
+  .quiz-step {
+    display: grid;
+    gap: var(--space-4);
+    /* Each step slides in as it is shown; the global reduced-motion rule zeroes this. */
+    animation: quiz-step-in 200ms ease-out;
+  }
+  @keyframes quiz-step-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  /* Headings receive focus programmatically on each step; the step change itself is the cue. */
+  .quiz-step h2:focus {
+    outline: none;
+  }
+
+  .quiz-guide {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+  .quiz-guide :global(.mascot) {
+    flex: none;
+  }
+  /* Rotated on the image so it doesn't fight the mascot's idle-bob transform. */
+  .quiz-guide :global(.mascot img) {
+    transform: rotate(-4deg);
+  }
+
+  .quiz-title,
+  .quiz-credential,
+  .quiz-lead,
+  .quiz-pitch {
+    margin: 0;
+  }
+  .quiz-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.25rem;
+  }
+  .quiz-credential {
+    justify-self: start;
+    padding: 2px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--color-navy);
+    color: var(--color-lime);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .quiz-lead {
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  .quiz-pitch {
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    box-shadow: var(--shadow-bubble);
+    font-size: 1.1rem;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+  @media (min-width: 640px) {
+    .quiz-options {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  /* Big, chunky pill answers: a solid navy "ledge" that presses down when clicked. */
+  .quiz-option {
+    min-height: 64px;
+    padding: var(--space-4) var(--space-6);
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius-pill);
+    background: var(--color-white);
+    color: var(--color-navy);
+    box-shadow: 0 5px 0 var(--color-navy);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      transform 120ms ease-out,
+      box-shadow 120ms ease-out,
+      background-color 120ms ease-out;
+  }
+  .quiz-option:hover {
+    background: var(--color-mist);
+  }
+  .quiz-option:active {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 var(--color-navy);
+  }
+
+  .quiz-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+  .quiz-actions--secondary {
+    justify-content: space-between;
+    margin-top: var(--space-4);
+  }
+  /* Quiet secondary actions on question screens, so the answers stay the focus. */
+  .quiz-text-button {
+    padding: var(--space-2) 0;
+    border: 0;
+    background: none;
+    color: var(--color-navy);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+  }
+  .quiz-text-button:hover {
+    color: var(--color-navy-soft);
+  }
+</style>

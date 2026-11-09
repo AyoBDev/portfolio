@@ -74,6 +74,8 @@ export const COPY = {
     },
     resultTitle: "Here's your match",
     matchTag: 'Matches what you asked',
+    regionLabel: 'Quick match quiz',
+    progressLabel: (current: number, total: number) => `Question ${current} of ${total}`,
   },
 
   // The result pitch is one focus line plus one proof line.
