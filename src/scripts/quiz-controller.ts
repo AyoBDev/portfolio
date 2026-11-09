@@ -17,6 +17,8 @@ import type { SectionId } from '../content/types';
 type StepName = 'intro' | 'focus' | 'proof' | 'result';
 
 const QUIZ_ACTIVE_CLASS = 'quiz-active';
+/** Tells the inline failsafe in Quiz.astro that the controller is running. */
+const QUIZ_READY_CLASS = 'quiz-ready';
 const SKIP_PARAM = 'skip';
 const SKIP_VALUE = '1';
 /** Which question number each question step is; other steps hide the progress bar. */
@@ -69,6 +71,7 @@ function updateProgress(elements: QuizElements, step: StepName): void {
 
 function showStep(elements: QuizElements, step: StepName, moveFocus = true): void {
   elements.quiz.hidden = false;
+  document.documentElement.classList.add(QUIZ_READY_CLASS);
   let activeStep: HTMLElement | null = null;
   for (const stepElement of elements.quiz.querySelectorAll<HTMLElement>('[data-step]')) {
     const isActive = stepElement.dataset.step === step;
@@ -187,4 +190,10 @@ function initQuiz(): void {
   showStep(elements, 'intro', false);
 }
 
-initQuiz();
+// A broken quiz must never leave the page blank: fall back to the full page.
+try {
+  initQuiz();
+} catch (error) {
+  setQuizActive(false);
+  throw error;
+}

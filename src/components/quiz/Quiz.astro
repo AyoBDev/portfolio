@@ -24,10 +24,20 @@ const questions = [
 <section class="quiz" data-quiz hidden aria-label={COPY.quiz.regionLabel}>
   <script is:inline>
     // Runs before <main> is parsed so JS visitors never see a flash of the full page.
-    // The controller removes the class again for ?skip=1-style exits and shared results.
-    if (new URLSearchParams(location.search).get('skip') !== '1') {
-      document.documentElement.classList.add('quiz-active');
-    }
+    // The controller removes the class again for skips and shared results.
+    (function () {
+      // Failsafe: if the controller hasn't shown anything by then, reveal the full page.
+      var CONTROLLER_TIMEOUT_MS = 2000;
+      var root = document.documentElement;
+      if (new URLSearchParams(location.search).get('skip') === '1') return;
+
+      root.classList.add('quiz-active');
+      function revealPageUnlessReady() {
+        if (!root.classList.contains('quiz-ready')) root.classList.remove('quiz-active');
+      }
+      setTimeout(revealPageUnlessReady, CONTROLLER_TIMEOUT_MS);
+      window.addEventListener('error', revealPageUnlessReady);
+    })();
   </script>
 
   <div

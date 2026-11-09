@@ -89,3 +89,26 @@ test('back from the result returns to the proof question with the default order'
   const ids = await page.locator('main > section').evaluateAll(s => s.map(e => e.id));
   expect(ids.slice(0, 3)).toEqual(['hero', 'olympus-vision', 'careomni']);
 });
+
+test.describe('failsafe when the quiz script does not run', () => {
+  const FAILSAFE_WAIT_MS = 3000;
+  test('blocked controller still reveals the full page', async ({ page }) => {
+    await page.route('**/_astro/Quiz.astro*.js', (route) => route.abort());
+    await page.goto('/');
+    await expect(page.locator('main')).toBeVisible({ timeout: FAILSAFE_WAIT_MS });
+    await expect(page.locator('#hero h1')).toBeVisible();
+  });
+  test('controller that throws still reveals the full page', async ({ page }) => {
+    // Breaks the controller's first DOM lookup so initQuiz throws.
+    await page.addInitScript(() => {
+      const original = Document.prototype.querySelector;
+      Document.prototype.querySelector = function (this: Document, selector: string) {
+        if (selector === '[data-quiz]') throw new Error('simulated quiz failure');
+        return original.call(this, selector);
+      } as typeof original;
+    });
+    await page.goto('/');
+    await expect(page.locator('main')).toBeVisible({ timeout: FAILSAFE_WAIT_MS });
+    await expect(page.locator('#hero h1')).toBeVisible();
+  });
+});
