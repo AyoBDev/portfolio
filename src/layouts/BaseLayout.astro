@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import { SITE } from '../config/site';
+import { SITE_URL } from '../../site-url.mjs';
+import { buildPersonJsonLd } from '../lib/structuredData';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage = `${SITE_URL}/og.png` } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
+// Certifications arrive in a later task; the Person markup is valid without them.
+const personJsonLd = buildPersonJsonLd(SITE, [], SITE_URL);
+const FONTS_URL =
+  'https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Urbanist:wght@500;600&display=swap';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={FONTS_URL} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

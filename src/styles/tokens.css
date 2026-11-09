@@ -1,0 +1,30 @@
+:root {
+  /* Brand colors. Text on lime is always navy. */
+  --color-lime: #d8ff00;
+  --color-navy: #102c40;
+  --color-paper: #f7fafc;
+  --color-white: #ffffff;
+  --color-navy-deep: #0a1c29;
+  --color-navy-soft: #1e4a69;
+  --color-mist: #eef2f5;
+  --color-line: #dde3e8;
+  --color-slate: #5a6e7c;
+  --color-grid-line: rgba(16, 44, 64, 0.1);
+
+  --radius-sm: 16px;
+  --radius-md: 26px;
+  --radius-lg: 40px;
+  --radius-pill: 999px;
+
+  --shadow-sticker: 0 18px 40px rgba(16, 44, 64, 0.35);
+  --shadow-bubble: 0 10px 24px rgba(16, 44, 64, 0.28);
+
+  --space-2: 8px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-edge: 56px;
+  --space-grid: 60px;
+
+  --font-display: 'Poppins', system-ui, sans-serif;
+  --font-body: 'Urbanist', system-ui, sans-serif;
+}
