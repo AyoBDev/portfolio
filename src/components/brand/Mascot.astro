@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import placeholder from '../../assets/mascot/placeholder.svg';
+
+interface Props {
+  pose: 'wave' | 'thinking' | 'pointing' | 'celebrating' | 'contact';
+  size?: number;
+}
+
+const DEFAULT_SIZE = 160;
+const { pose, size = DEFAULT_SIZE } = Astro.props;
+
+// Bitmoji pose PNGs are added later; until then the placeholder is used.
+const poseImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/mascot/*.png', {
+  eager: true,
+});
+const poseImage = poseImages[`/src/assets/mascot/${pose}.png`]?.default;
+---
+
+<div class="mascot" data-mascot data-pose={pose}>
+  {
+    poseImage ? (
+      <Image src={poseImage} alt="" width={size} height={size} />
+    ) : (
+      <img src={placeholder.src} alt="" width={size} height={size} />
+    )
+  }
+</div>
+
+<style>
+  .mascot {
+    display: inline-block;
+    line-height: 0;
+    animation: mascot-bob 3.2s ease-in-out infinite;
+  }
+  .mascot :global(img) {
+    /* Stacked white drop-shadows build the sticker outline; the last adds lift. */
+    filter: drop-shadow(3px 0 0 var(--color-white)) drop-shadow(-3px 0 0 var(--color-white))
+      drop-shadow(0 3px 0 var(--color-white)) drop-shadow(0 -3px 0 var(--color-white))
+      drop-shadow(0 10px 12px rgba(16, 44, 64, 0.28));
+  }
+  @keyframes mascot-bob {
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+</style>

@@ -1,0 +1,22 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<p class="bubble">{text}</p>
+
+<style>
+  .bubble {
+    display: inline-block;
+    margin: 0;
+    padding: var(--space-4) var(--space-6);
+    background: var(--color-paper);
+    color: var(--color-navy);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-bubble);
+    font-weight: 700;
+  }
+</style>

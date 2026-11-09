@@ -1,0 +1,25 @@
+---
+interface Props {
+  /** Rotation in degrees; keeps stickers looking hand-placed. Range -3.5..7. */
+  rotate?: number;
+  as?: 'div' | 'figure';
+}
+
+const { rotate = 0, as: Tag = 'div' } = Astro.props;
+---
+
+<Tag class="sticker" style={`--sticker-rotate: ${rotate}deg`}>
+  <slot />
+</Tag>
+
+<style>
+  .sticker {
+    margin: 0;
+    border: 14px solid var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sticker);
+    background: var(--color-white);
+    overflow: hidden;
+    transform: rotate(var(--sticker-rotate));
+  }
+</style>
