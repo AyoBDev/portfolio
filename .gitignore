@@ -1,6 +1,4 @@
 worktrees/
-.gstack/
-.superpowers/
 node_modules/
 dist/
 .astro/
@@ -9,4 +7,3 @@ playwright-report/
 .lighthouseci/
 .DS_Store
 .privacy-denylist
-docs/superpowers/

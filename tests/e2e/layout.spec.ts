@@ -80,9 +80,10 @@ test('Email me and Copy email buttons line up in the hero and contact sections',
       const emailBox = await page.locator(`${section} a[href^="mailto:"].button`).first().boundingBox();
       const copyBox = await page.locator(`${section} [data-copy-email]`).boundingBox();
       if (!emailBox || !copyBox) throw new Error(`buttons missing in ${section}`);
-      // Side by side they share a centre line; wrapped onto separate rows they don't overlap.
-      const sameRow = Math.abs(emailBox.y - copyBox.y) < emailBox.height;
-      if (sameRow) {
+      // Only buttons that sit side by side must share a centre line. On phones they stack on
+      // purpose, and comparing heights alone misfires when fonts render taller (as on Linux CI).
+      const sideBySide = copyBox.x >= emailBox.x + emailBox.width;
+      if (sideBySide) {
         expect(Math.abs(emailBox.y + emailBox.height / 2 - (copyBox.y + copyBox.height / 2)), `${section} @${width}`).toBeLessThanOrEqual(1);
       }
     }

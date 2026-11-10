@@ -1,6 +1,24 @@
 # Ayomikun Ayobami: portfolio
 
-A fast, static portfolio site built with [Astro](https://astro.build). It opens with a short quiz that puts the most relevant sections first, and it works fully without JavaScript.
+My portfolio site: **[ayomikun-ayobami.pages.dev](https://ayomikun-ayobami.pages.dev)**
+
+I'm a Systems & Cloud Engineer. The site opens with a 30-second quiz that asks what you're hiring for and what would convince you, then puts the most relevant work first. You can skip it at any time, and the full page works without JavaScript.
+
+## Built with
+
+- [Astro](https://astro.build), static output, no client framework
+- Under 300 lines of vanilla TypeScript for the quiz, layered on server-rendered HTML
+- Hosted on Cloudflare Pages
+
+## Quality checks
+
+Every push runs these in GitHub Actions:
+
+- Type checking (`astro check`)
+- Unit tests (Vitest) for the quiz logic and content
+- Browser tests (Playwright), including keyboard use, reduced motion, a no-JavaScript run, and no sideways scrolling at 320px
+- Accessibility scans with axe on every quiz step and the full page
+- Lighthouse, with all four scores required to be at least 95
 
 ## Run it locally
 
@@ -8,10 +26,8 @@ You need Node 22 (`.nvmrc` is set, so `nvm use` picks it).
 
 ```sh
 npm install
-npm run dev        # http://localhost:4321
+npm run dev
 ```
-
-Other commands:
 
 | Command | What it does |
 | --- | --- |
@@ -20,32 +36,4 @@ Other commands:
 | `npm run check` | Type-checks the project |
 | `npm test` | Unit tests |
 | `npm run test:e2e` | Browser tests (run `npx playwright install chromium` once first) |
-| `npm run lhci` | Lighthouse check (needs a build; all four scores must be at least 95) |
-
-## Where to edit things
-
-- **Text:** all wording lives in `src/content/copy.ts`.
-- **Data:** projects, experience, certifications, skills and articles are in the other files in `src/content/`.
-- **Name, email, links:** `src/config/site.ts`.
-- **Share image:** `public/og.png` is generated from `scripts/og.html`. Open that file in a browser at 1200x630 and take a screenshot to refresh it.
-
-## Adding images
-
-- **Bitmoji poses:** drop PNGs into `src/assets/mascot/`, named after the pose. The page uses `wave.png`, `thinking.png` and `celebrating.png`; the contact section shows a real photo from `src/assets/photo/` instead. Any pose without a PNG falls back to the placeholder. No code change is needed.
-- **Badge images:** put the files in `public/badges/` and set each certification's `badgeImage` (for example `/badges/aws-sap.png`) in `src/content/certifications.ts`. The field exists in the data, but the page does not display badge images yet; showing them needs a small change in `src/components/sections/Certifications.astro`.
-
-## Changing the domain
-
-The site address is read from the `PUBLIC_SITE_URL` environment variable and defaults to `https://ayomikun-ayobami.pages.dev`. It feeds the canonical link, share tags, sitemap and `robots.txt`. To use a custom domain, set `PUBLIC_SITE_URL` (for example `https://example.com`) and rebuild.
-
-## Deploying to Cloudflare Pages
-
-This is done once by Ayomikun in the Cloudflare dashboard. No credentials are stored in this repository.
-
-1. In Cloudflare, go to **Workers & Pages**, then **Create**, then **Pages**, then **Connect to Git**, and choose this GitHub repository.
-2. Set the framework preset to **Astro**.
-3. Build command: `npm run build`. Build output directory: `dist`.
-4. Under environment variables add `NODE_VERSION` = `22`, and optionally `PUBLIC_SITE_URL` if you use a custom domain.
-5. Save and deploy. Every push to the production branch redeploys automatically.
-
-GitHub Actions (`.github/workflows/ci.yml`) only runs checks and tests. It does not deploy.
+| `npm run lhci` | Lighthouse check (needs a build) |
