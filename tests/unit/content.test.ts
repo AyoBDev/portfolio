@@ -47,6 +47,12 @@ test('four skill groups and education', () => {
   expect(SKILLS.map((g) => g.name)).toEqual(['Cloud', 'IaC & delivery', 'Networking', 'Backend']);
   expect(EDUCATION.grade).toBe('4.39 / 5.0');
 });
+test('the NOC internship lists its networking work, monitored with SolarWinds', () => {
+  const noc = ROLES.find((r) => r.label === 'Internship')!;
+  expect(noc.points.length).toBeGreaterThanOrEqual(6);
+  expect(noc.points.join(' ')).toContain('SolarWinds');
+  expect(SKILLS.find((g) => g.name === 'Networking')!.items).toEqual(expect.arrayContaining(['SolarWinds', 'VLANs']));
+});
 test('education lists the university leadership roles', () => {
   expect(EDUCATION.activities.map((a) => a.group)).toEqual(['NATECSS student association', 'Huawei Student Club']);
   for (const activity of EDUCATION.activities) expect(activity.result.length).toBeGreaterThan(0);

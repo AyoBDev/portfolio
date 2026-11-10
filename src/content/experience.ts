@@ -24,7 +24,16 @@ export const ROLES: Role[] = [
     label: 'Internship',
     start: '2026-03',
     end: '2026-08',
-    points: [],
+    points: [
+      'Network monitoring with SolarWinds',
+      'Troubleshooting user and department outages',
+      'VLAN, OSPF and static routing configuration',
+      'Switch port and Wi-Fi access point configuration',
+      'Firewall rules and ACLs',
+      'IP addressing, DHCP and DNS',
+      'Cabling, patch panels and termination',
+      'Network documentation and diagrams',
+    ],
   },
   {
     org: 'Opsters',
