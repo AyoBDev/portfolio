@@ -46,6 +46,7 @@ export const FEATURED: FeaturedProject[] = [
     demoVideo: {
       src: '/media/olympus-demo.mp4',
       poster: '/media/olympus-demo-poster.jpg',
+      captions: '/media/olympus-demo.en.vtt',
       width: 464,
       height: 832,
       caption:

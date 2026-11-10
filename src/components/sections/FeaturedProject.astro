@@ -98,7 +98,9 @@ const demoLoginHref = project.demoLoginSubject
                 controls
                 playsinline
                 preload="none"
-              />
+              >
+                <track kind="captions" src={project.demoVideo.captions} srclang="en" label="English" default />
+              </video>
               <figcaption>{project.demoVideo.caption}</figcaption>
             </figure>
           )

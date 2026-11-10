@@ -15,6 +15,8 @@ export type PrivateRepoNote = 'Private repo · walkthrough on request';
 export type DemoVideo = {
   src: string;
   poster: string;
+  /** English WebVTT captions, required because the recording has speech. */
+  captions: string;
   width: number;
   height: number;
   caption: string;

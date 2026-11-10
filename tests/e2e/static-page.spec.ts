@@ -53,3 +53,12 @@ test('CareOmni offers a demo login by email, never a public password', async ({ 
   expect(decodeURIComponent((await request.getAttribute('href')) ?? '')).toContain('CareOmni demo login');
   await expect(page.locator('#careomni')).not.toContainText(/password/i);
 });
+test('Olympus demo video has English captions', async ({ page }) => {
+  await page.goto('/?skip=1');
+  const track = page.locator('#olympus-vision video track[kind="captions"]');
+  await expect(track).toHaveAttribute('srclang', 'en');
+  const src = await track.getAttribute('src');
+  const res = await page.request.get(src ?? '');
+  expect(res.status()).toBe(200);
+  expect(await res.text()).toMatch(/^WEBVTT/);
+});
