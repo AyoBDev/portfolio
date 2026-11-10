@@ -72,3 +72,19 @@ test('incident feedback region stays in the accessibility tree while empty', asy
     .evaluate((element) => getComputedStyle(element).display);
   expect(display).not.toBe('none');
 });
+test('Email me and Copy email buttons line up in the hero and contact sections', async ({ page }) => {
+  for (const width of [375, 1280]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/?skip=1');
+    for (const section of ['#hero', '#contact']) {
+      const emailBox = await page.locator(`${section} a[href^="mailto:"].button`).first().boundingBox();
+      const copyBox = await page.locator(`${section} [data-copy-email]`).boundingBox();
+      if (!emailBox || !copyBox) throw new Error(`buttons missing in ${section}`);
+      // Side by side they share a centre line; wrapped onto separate rows they don't overlap.
+      const sameRow = Math.abs(emailBox.y - copyBox.y) < emailBox.height;
+      if (sameRow) {
+        expect(Math.abs(emailBox.y + emailBox.height / 2 - (copyBox.y + copyBox.height / 2)), `${section} @${width}`).toBeLessThanOrEqual(1);
+      }
+    }
+  }
+});

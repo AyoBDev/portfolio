@@ -23,6 +23,7 @@ import { SITE } from '../../config/site';
 
 <style>
   .copy-email {
+    position: relative;
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
@@ -32,10 +33,16 @@ import { SITE } from '../../config/site';
     font-weight: 600;
     overflow-wrap: anywhere;
   }
+  /* Sits just below the row instead of in it, so the empty status never pushes the
+     button off the shared centre line with "Email me". It stays in the accessibility
+     tree (no display:none) so screen readers still hear "Copied". */
   .copy-email-status {
-    flex-basis: 100%;
-    min-height: 1.4em;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: var(--space-2);
     font-weight: 600;
     color: var(--color-navy);
+    white-space: nowrap;
   }
 </style>
