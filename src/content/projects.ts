@@ -98,6 +98,13 @@ export const FEATURED: FeaturedProject[] = [
 
 export const MORE_PROJECTS: ProjectCard[] = [
   {
+    name: 'IroyinMarket',
+    summary:
+      'A startup: a campus prediction market for Nigerian university students, with real-time markets and a WhatsApp bot. It grew to 100+ users and 20+ daily active users before it closed over legal hurdles.',
+    tags: ['Startup', 'Node.js', 'PostgreSQL', 'Socket.io', 'React'],
+    repoUrl: `${GITHUB_ROOT}/IroyinAyo`,
+  },
+  {
     name: 'UniIlorin Carpooling',
     summary: 'A serverless Node.js backend for carpooling, backed by DynamoDB and Redis.',
     tags: ['Node.js', 'Serverless', 'DynamoDB', 'Redis'],
