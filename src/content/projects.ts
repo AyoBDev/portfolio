@@ -106,7 +106,8 @@ export const MORE_PROJECTS: ProjectCard[] = [
   },
   {
     name: 'UniIlorin Carpooling',
-    summary: 'A serverless Node.js backend for carpooling, backed by DynamoDB and Redis.',
+    summary:
+      "A carpooling platform for the University of Ilorin, built to tackle the campus's transportation problem. Serverless Node.js backend on DynamoDB and Redis.",
     tags: ['Node.js', 'Serverless', 'DynamoDB', 'Redis'],
     repoUrl: `${GITHUB_ROOT}/unilorin-carpooling`,
   },
