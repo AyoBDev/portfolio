@@ -105,5 +105,8 @@ export type Article = {
 export type Education = {
   school: string;
   degree: string;
+  /** Start and end years, formatted YYYY. */
+  startYear: string;
+  endYear: string;
   grade: string;
 };

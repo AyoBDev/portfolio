@@ -35,6 +35,7 @@ import { formatMonthRange } from '../../lib/dates';
     <div class="card education-card">
       <p class="education-school">{EDUCATION.school}</p>
       <p>{EDUCATION.degree}</p>
+      <p class="education-years">{EDUCATION.startYear} – {EDUCATION.endYear}</p>
       <p class="education-grade">{EDUCATION.grade}</p>
     </div>
   </div>
@@ -74,7 +75,8 @@ import { formatMonthRange } from '../../lib/dates';
   .timeline-item h3 {
     font-size: clamp(20px, 1rem + 0.8vw, 28px);
   }
-  .timeline-dates {
+  .timeline-dates,
+  .education-years {
     color: var(--color-slate);
     font-weight: 600;
   }

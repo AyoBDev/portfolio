@@ -28,7 +28,7 @@ export const ROLES: Role[] = [
   },
   {
     org: 'Opsters',
-    title: 'Automation Engineer',
+    title: 'Business Automation Engineer',
     start: '2023-08',
     end: '2024-07',
     points: ['Remote'],
@@ -45,5 +45,7 @@ export const ROLES: Role[] = [
 export const EDUCATION: Education = {
   school: 'University of Ilorin',
   degree: 'BSc Telecommunication Science',
+  startYear: '2022',
+  endYear: '2026',
   grade: '4.39 / 5.0',
 };
