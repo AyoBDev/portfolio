@@ -75,3 +75,13 @@ test('AWS certifications show their official badge images, in the hero and the c
     await expect(img).toHaveAttribute('alt', '');
   }
 });
+test('every mascot on the page uses a real Bitmoji pose, not the placeholder', async ({ page }) => {
+  await page.goto('/');
+  const mascots = page.locator('[data-mascot] img');
+  expect(await mascots.count()).toBeGreaterThanOrEqual(4);
+  for (const img of await mascots.all()) {
+    expect(await img.getAttribute('src')).not.toContain('placeholder');
+  }
+  const poses = await page.locator('[data-mascot]').evaluateAll((els) => [...new Set(els.map((el) => el.getAttribute('data-pose')))].sort());
+  expect(poses).toEqual(['celebrating', 'contact', 'thinking', 'wave']);
+});
