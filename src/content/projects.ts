@@ -42,6 +42,15 @@ export const FEATURED: FeaturedProject[] = [
     ],
     repo: { url: `${GITHUB_ROOT}/cctv-cloud-storage` },
     liveUrl: 'https://www.olympusvisions.com/',
+    // Cut from the original recording to remove a section where people's faces are visible.
+    demoVideo: {
+      src: '/media/olympus-demo.mp4',
+      poster: '/media/olympus-demo-poster.jpg',
+      width: 464,
+      height: 832,
+      caption:
+        'Recorded demo: an ordinary IP camera and a Raspberry Pi, with no NVR, streaming to the live dashboard.',
+    },
   },
   {
     id: 'careomni',
@@ -75,6 +84,7 @@ export const FEATURED: FeaturedProject[] = [
     stackLabel: 'Architecture',
     stack: ['PostgreSQL', 'Background workers', 'Encryption service', 'Audit log', 'Automated tests'],
     repo: { private: true, note: 'Private repo · walkthrough on request' },
+    demoLoginSubject: 'CareOmni demo login',
     // From the CareOmni pitch deck (clients, caregivers, shifts) and LinkedIn (payroll).
     stats: [
       { value: '227', label: 'clients' },

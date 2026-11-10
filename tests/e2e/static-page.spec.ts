@@ -35,3 +35,21 @@ test('featured projects link to their live site and verified certs link to Credl
   await expect(page.locator('#careomni a', { hasText: 'Live site' })).toHaveCount(0);
   await expect(page.locator('#certifications a[href^="https://www.credly.com/badges/"]')).toHaveCount(2);
 });
+test('Olympus demo video loads only on demand, with controls and sound left to the visitor', async ({ page }) => {
+  await page.goto('/?skip=1');
+  const video = page.locator('#olympus-vision video');
+  await expect(video).toHaveCount(1);
+  await expect(video).toHaveAttribute('src', '/media/olympus-demo.mp4');
+  await expect(video).toHaveAttribute('poster', '/media/olympus-demo-poster.jpg');
+  await expect(video).toHaveAttribute('preload', 'none');
+  expect(await video.evaluate((v: HTMLVideoElement) => v.controls && !v.autoplay)).toBe(true);
+  const res = await page.request.get('/media/olympus-demo.mp4');
+  expect(res.status()).toBe(200);
+});
+test('CareOmni offers a demo login by email, never a public password', async ({ page }) => {
+  await page.goto('/?skip=1');
+  const request = page.locator('#careomni a[href^="mailto:"]', { hasText: 'Request a demo login' });
+  await expect(request).toHaveCount(1);
+  expect(decodeURIComponent((await request.getAttribute('href')) ?? '')).toContain('CareOmni demo login');
+  await expect(page.locator('#careomni')).not.toContainText(/password/i);
+});

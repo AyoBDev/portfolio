@@ -12,6 +12,14 @@ export type SectionId =
 
 export type PrivateRepoNote = 'Private repo · walkthrough on request';
 
+export type DemoVideo = {
+  src: string;
+  poster: string;
+  width: number;
+  height: number;
+  caption: string;
+};
+
 export type FeaturedProject = {
   id: 'olympus-vision' | 'careomni';
   name: string;
@@ -24,6 +32,10 @@ export type FeaturedProject = {
   stack: string[];
   repo: { url: string } | { private: true; note: PrivateRepoNote };
   liveUrl?: string;
+  /** A recorded walkthrough, served from public/. Width and height are the encoded pixel size. */
+  demoVideo?: DemoVideo;
+  /** Subject line for a "request a demo login" email; demo credentials are never published. */
+  demoLoginSubject?: string;
   /** Headline numbers shown as a stat row; every figure must come from a cited source. */
   stats?: ProjectStat[];
 };

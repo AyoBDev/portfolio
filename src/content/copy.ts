@@ -170,6 +170,8 @@ export const COPY = {
       proof: 'Engineering proof',
       repo: 'Code on GitHub',
       live: 'Live site',
+      demoLogin: 'Request a demo login',
+      video: 'Watch the demo',
       stats: 'In production',
     },
   },
