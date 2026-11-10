@@ -53,8 +53,13 @@ function findElements(): QuizElements | null {
   };
 }
 
+/** While the quiz hides <main>, the quiz stands in as the page's main landmark so the page always has one. */
 function setQuizActive(active: boolean): void {
   document.documentElement.classList.toggle(QUIZ_ACTIVE_CLASS, active);
+  const quiz = document.querySelector<HTMLElement>('[data-quiz]');
+  if (!quiz) return;
+  if (active) quiz.setAttribute('role', 'main');
+  else quiz.removeAttribute('role');
 }
 
 function updateProgress(elements: QuizElements, step: StepName): void {

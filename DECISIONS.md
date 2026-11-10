@@ -12,3 +12,5 @@
 **Choice:** Astro + `@astrojs/sitemap`, deployed as static output to Cloudflare Pages. Build the quiz as about 150 lines of vanilla TypeScript, progressively enhancing server-rendered HTML so the page works without JS.
 
 **Why:** no suitable theme or quiz component fits the brand without overriding most of it, and a framework runtime for this little logic costs more than it saves.
+
+**Hosting note (Cloudflare Pages vs Workers static assets):** Pages is chosen because its Git integration deploys a static `dist` for free with no config. Cloudflare's docs now point new projects toward Workers static assets (not re-verified at the time of this note); revisit and migrate if Pages is deprecated.

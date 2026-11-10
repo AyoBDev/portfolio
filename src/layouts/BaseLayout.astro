@@ -15,6 +15,9 @@ interface Props {
 const { title, description, ogImage = `${SITE_URL}/og.png` } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
 const personJsonLd = buildPersonJsonLd(SITE, CERTS, SITE_URL);
+const OG_IMAGE_WIDTH = 1200;
+const OG_IMAGE_HEIGHT = 630;
+const OG_IMAGE_ALT = `${SITE.name}, ${SITE.title}`;
 const FONTS_URL =
   'https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Urbanist:wght@500;600&display=swap';
 ---
@@ -34,14 +37,20 @@ const FONTS_URL =
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(OG_IMAGE_WIDTH)} />
+    <meta property="og:image:height" content={String(OG_IMAGE_HEIGHT)} />
+    <meta property="og:image:alt" content={OG_IMAGE_ALT} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={OG_IMAGE_ALT} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href={FONTS_URL} />
+    {/* Non-blocking font load: the page paints with the fallback font, then swaps (display=swap). */}
+    <link rel="preload" as="style" href={FONTS_URL} onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href={FONTS_URL} /></noscript>
 
     <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
   </head>

@@ -31,6 +31,8 @@ const poseImage = poseImages[`/src/assets/mascot/${pose}.png`]?.default;
   .mascot {
     display: inline-block;
     line-height: 0;
+    /* Own compositor layer: the bob moves the layer instead of re-painting the stacked filters each frame. */
+    will-change: transform;
     animation: mascot-bob 3.2s ease-in-out infinite;
   }
   .mascot :global(img) {

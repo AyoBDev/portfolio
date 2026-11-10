@@ -1,5 +1,25 @@
 @import './tokens.css';
 
+/* Metric-adjusted stand-ins for the web fonts, so the swap when Poppins / Urbanist arrive
+   barely moves the layout (keeps layout shift near zero). Widths were measured against the real fonts (Arial is within about 1% for both);
+   the vertical overrides are approximations. */
+@font-face {
+  font-family: 'Poppins Fallback';
+  src: local('Arial');
+  size-adjust: 97%;
+  ascent-override: 106%;
+  descent-override: 35%;
+  line-gap-override: 10%;
+}
+@font-face {
+  font-family: 'Urbanist Fallback';
+  src: local('Arial');
+  size-adjust: 97%;
+  ascent-override: 101%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
 *,
 *::before,
 *::after {
@@ -131,5 +151,21 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: 0s !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Primary email button and the copy-email control. Stacked on narrow screens so the
+   layout does not depend on exactly how wide the web font renders (avoids layout shift). */
+.contact-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+@media (min-width: 700px) {
+  .contact-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
   }
 }

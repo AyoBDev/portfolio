@@ -30,8 +30,8 @@
   --sticky-offset-top: 0px;
   --sticky-offset-bottom: 72px;
 
-  --font-display: 'Poppins', system-ui, sans-serif;
-  --font-body: 'Urbanist', system-ui, sans-serif;
+  --font-display: 'Poppins', 'Poppins Fallback', system-ui, sans-serif;
+  --font-body: 'Urbanist', 'Urbanist Fallback', system-ui, sans-serif;
 }
 
 @media (min-width: 900px) {
