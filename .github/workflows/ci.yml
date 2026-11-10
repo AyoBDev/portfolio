@@ -21,3 +21,11 @@ jobs:
       # Lighthouse needs the built site; the Playwright run above builds it, but build again so this step stands alone.
       - run: npm run build
       - run: npx lhci autorun
+      # Shared CI machines vary a lot in speed, so the performance score is a warning there
+      # (see lighthouserc.json). The full reports are kept so a slow run can be inspected.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          retention-days: 14
