@@ -107,8 +107,8 @@ export const MORE_PROJECTS: ProjectCard[] = [
   {
     name: 'UniIlorin Carpooling',
     summary:
-      "PSRide: a carpooling platform for the University of Ilorin, built as a final-year team project to tackle the campus's transportation problem. I was the backend engineer (serverless Node.js on DynamoDB and Redis). The team was one of five finalists in the NATECSS Technology Innovation Challenge (TIC 2.0).",
-    tags: ['Finalist', 'Node.js', 'Serverless', 'DynamoDB', 'Redis'],
+      "PSRide: a carpooling platform for the University of Ilorin, built as a final-year team project to tackle the campus's transportation problem. I was the backend engineer (serverless Node.js on DynamoDB and Redis).",
+    tags: ['Node.js', 'Serverless', 'DynamoDB', 'Redis'],
     repoUrl: `${GITHUB_ROOT}/unilorin-carpooling`,
   },
   {
