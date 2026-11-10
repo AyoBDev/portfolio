@@ -47,6 +47,10 @@ test('four skill groups and education', () => {
   expect(SKILLS.map((g) => g.name)).toEqual(['Cloud', 'IaC & delivery', 'Networking', 'Backend']);
   expect(EDUCATION.grade).toBe('4.39 / 5.0');
 });
+test('education lists the university leadership roles', () => {
+  expect(EDUCATION.activities.map((a) => a.group)).toEqual(['NATECSS student association', 'Huawei Student Club']);
+  for (const activity of EDUCATION.activities) expect(activity.result.length).toBeGreaterThan(0);
+});
 test('copy has a band line per section and a pitch per answer', () => {
   expect(Object.keys(COPY.bands).sort()).toEqual([...DEFAULT_SECTION_ORDER].sort());
   expect(Object.keys(COPY.pitch.focus)).toHaveLength(4);

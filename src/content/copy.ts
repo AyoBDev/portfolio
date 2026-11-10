@@ -211,6 +211,7 @@ export const COPY = {
   experience: {
     present: 'Present',
     educationHeading: 'Education',
+    activitiesHeading: 'Leadership & activities',
   },
 
   certifications: {

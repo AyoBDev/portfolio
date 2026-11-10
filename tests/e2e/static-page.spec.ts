@@ -114,3 +114,11 @@ test('client testimonials sit just before contact, with honest credits and a lin
   // Contract amounts and hourly rates from the review screenshots never appear.
   await expect(page.locator('#testimonials')).not.toContainText('$');
 });
+test('education card lists the university leadership roles under their own heading', async ({ page }) => {
+  await page.goto('/?skip=1');
+  const card = page.locator('.education-card');
+  await expect(card.getByRole('heading', { name: 'Leadership & activities' })).toBeVisible();
+  await expect(card.locator('.education-activities > li')).toHaveCount(2);
+  await expect(card).toContainText('TIC 2.0 Technical Lead');
+  await expect(card).toContainText('Huawei Student Club');
+});

@@ -48,4 +48,18 @@ export const EDUCATION: Education = {
   startYear: '2022',
   endYear: '2026',
   grade: '4.39 / 5.0',
+  // From the resume's "Education and Leadership" section.
+  activities: [
+    {
+      role: 'TIC 2.0 Technical Lead',
+      group: 'NATECSS student association',
+      result:
+        'Led the Technology Innovation Challenge technical team from pre-event preparation through Expo Day to the Grand Finale for five finalist teams.',
+    },
+    {
+      role: 'Team Lead and Huawei Ambassador',
+      group: 'Huawei Student Club',
+      result: 'Led the club, which was recognised as one of the best Huawei student clubs in 2026.',
+    },
+  ],
 };

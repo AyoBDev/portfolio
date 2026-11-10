@@ -37,6 +37,19 @@ import { formatMonthRange } from '../../lib/dates';
       <p>{EDUCATION.degree}</p>
       <p class="education-years">{EDUCATION.startYear} – {EDUCATION.endYear}</p>
       <p class="education-grade">{EDUCATION.grade}</p>
+      <h4 class="education-activities-heading">{COPY.experience.activitiesHeading}</h4>
+      <ul class="education-activities">
+        {
+          EDUCATION.activities.map((activity) => (
+            <li>
+              <p class="education-activity-role">
+                {activity.role}, <span>{activity.group}</span>
+              </p>
+              <p>{activity.result}</p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </div>
 </Section>
@@ -107,6 +120,25 @@ import { formatMonthRange } from '../../lib/dates';
     font-family: var(--font-display);
     font-weight: 800;
     font-size: 1.2rem;
+  }
+  .education-activities-heading {
+    margin: var(--space-6) 0 var(--space-2);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1rem;
+  }
+  .education-activities {
+    margin: 0;
+    padding-left: var(--space-6);
+    display: grid;
+    gap: var(--space-4);
+  }
+  .education-activity-role {
+    font-weight: 700;
+  }
+  .education-activity-role span {
+    font-weight: 600;
+    color: var(--color-slate);
   }
   .education-grade {
     display: inline-block;

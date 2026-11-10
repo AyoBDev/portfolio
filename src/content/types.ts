@@ -102,6 +102,13 @@ export type Article = {
   topics: string[];
 };
 
+/** A leadership role held alongside the degree. */
+export type UniversityActivity = {
+  role: string;
+  group: string;
+  result: string;
+};
+
 export type Education = {
   school: string;
   degree: string;
@@ -109,4 +116,5 @@ export type Education = {
   startYear: string;
   endYear: string;
   grade: string;
+  activities: UniversityActivity[];
 };
