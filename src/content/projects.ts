@@ -114,8 +114,8 @@ export const MORE_PROJECTS: ProjectCard[] = [
   {
     name: 'ESL Inventory Sync',
     summary:
-      'Middleware that syncs a legacy POS (.dbf) with electronic shelf labels, with incremental sync, atomic writes and retry with backoff.',
-    tags: ['Middleware', 'Sync', 'Retry with backoff'],
+      'Python middleware that syncs a legacy POS (.dbf) with electronic shelf labels, with incremental sync, atomic writes and retry with backoff.',
+    tags: ['Python', 'Middleware', 'Sync', 'Retry with backoff'],
     repoUrl: `${GITHUB_ROOT}/ESL-Inventory-Synchronization-Middleware`,
   },
   {
