@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { SITE_URL } from '../../site-url.mjs';
 
 test('home page head is SEO-complete', async ({ page }) => {
   await page.goto('/');
@@ -8,7 +9,7 @@ test('home page head is SEO-complete', async ({ page }) => {
     await expect(page.locator(sel)).toHaveCount(1);
 });
 
-test('robots.txt points at the sitemap on SITE_URL', async ({ request }) => {
+test('robots.txt points at the sitemap on the configured site URL', async ({ request }) => {
   const body = await (await request.get('/robots.txt')).text();
-  expect(body).toContain('Sitemap: https://ayomikun-ayobami.pages.dev/sitemap-index.xml');
+  expect(body).toContain(`Sitemap: ${SITE_URL}/sitemap-index.xml`);
 });
