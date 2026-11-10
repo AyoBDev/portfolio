@@ -15,7 +15,10 @@ const BADGE_IMAGE_SIZE_PX = 88;
     {
       CERTS.map((cert, index) => (
         <li class="cert-slot">
-          <div class="card cert-badge" style={`--tilt: ${BADGE_TILTS[index % BADGE_TILTS.length]}deg`}>
+          <div
+            class:list={['card', 'cert-badge', { 'cert-badge--with-image': cert.badgeImage }]}
+            style={`--tilt: ${BADGE_TILTS[index % BADGE_TILTS.length]}deg`}
+          >
             {cert.badgeImage && (
               <Image
                 class="cert-badge-image"
@@ -25,17 +28,19 @@ const BADGE_IMAGE_SIZE_PX = 88;
                 alt=""
               />
             )}
-            <p class="cert-issuer">{cert.issuer}</p>
-            <h3>{cert.name}</h3>
-            <p class="cert-issued">
-              {COPY.certifications.issued} {formatMonth(cert.issued)}
-            </p>
-            {cert.verifyUrl && (
-              <a class="card-link" href={cert.verifyUrl}>
-                {COPY.certifications.verify}
-                <span class="visually-hidden">: {cert.name}</span>
-              </a>
-            )}
+            <div class="cert-text">
+              <p class="cert-issuer">{cert.issuer}</p>
+              <h3>{cert.name}</h3>
+              <p class="cert-issued">
+                {COPY.certifications.issued} {formatMonth(cert.issued)}
+              </p>
+              {cert.verifyUrl && (
+                <a class="card-link" href={cert.verifyUrl}>
+                  {COPY.certifications.verify}
+                  <span class="visually-hidden">: {cert.name}</span>
+                </a>
+              )}
+            </div>
           </div>
         </li>
       ))
@@ -63,9 +68,20 @@ const BADGE_IMAGE_SIZE_PX = 88;
     border: 6px solid var(--color-navy);
     transform: rotate(var(--tilt));
   }
+  /* Badge on the left, text beside it. Cards without a badge keep the single column. */
+  .cert-badge--with-image {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--space-4);
+  }
   .cert-badge-image {
-    width: 88px;
+    width: clamp(64px, 18vw, 88px);
     height: auto;
+  }
+  .cert-text {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
   }
   .cert-badge p {
     margin: 0;
