@@ -5,6 +5,8 @@ import { CERTS } from '../../src/content/certifications';
 import { ARTICLES } from '../../src/content/articles';
 import { SKILLS } from '../../src/content/skills';
 import { COPY } from '../../src/content/copy';
+import { TESTIMONIALS } from '../../src/content/testimonials';
+import { DEFAULT_SECTION_ORDER } from '../../src/content/quizConfig';
 import { DENYLIST_SKIP_MESSAGE, findForbiddenTerms, loadDenylist } from '../support/denylist';
 
 test('careomni has no repo link and the private note', () => {
@@ -46,21 +48,21 @@ test('four skill groups and education', () => {
   expect(EDUCATION.grade).toBe('4.39 / 5.0');
 });
 test('copy has a band line per section and a pitch per answer', () => {
-  expect(Object.keys(COPY.bands)).toHaveLength(9);
+  expect(Object.keys(COPY.bands).sort()).toEqual([...DEFAULT_SECTION_ORDER].sort());
   expect(Object.keys(COPY.pitch.focus)).toHaveLength(4);
   expect(Object.keys(COPY.pitch.proof)).toHaveLength(4);
   expect(Object.keys(COPY.diagram)).toHaveLength(8);
   expect(COPY.incident.options.filter((o) => o.correct)).toHaveLength(1);
 });
 test('copy contains no placeholder or forbidden text', () => {
-  const all = JSON.stringify({ COPY, FEATURED, MORE_PROJECTS, ROLES, ARTICLES, SKILLS, EDUCATION });
+  const all = JSON.stringify({ COPY, FEATURED, MORE_PROJECTS, ROLES, ARTICLES, SKILLS, EDUCATION, TESTIMONIALS });
   expect(all).not.toMatch(/TODO|lorem|TBD/i);
   expect(all).not.toContain('—');
 });
 
 const denylist = loadDenylist();
 test.skipIf(denylist.length === 0)('content contains no deny-listed terms', () => {
-  const all = JSON.stringify({ COPY, FEATURED, MORE_PROJECTS, ROLES, ARTICLES, SKILLS, EDUCATION });
+  const all = JSON.stringify({ COPY, FEATURED, MORE_PROJECTS, ROLES, ARTICLES, SKILLS, EDUCATION, TESTIMONIALS });
   expect(findForbiddenTerms(all, denylist)).toEqual([]);
 });
 if (denylist.length === 0) console.warn(DENYLIST_SKIP_MESSAGE);

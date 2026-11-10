@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { DEFAULT_SECTION_ORDER } from '../../src/content/quizConfig';
 import AxeBuilder from '@axe-core/playwright';
 
 test('full flow tailors the page and keeps every section', async ({ page }) => {
@@ -10,7 +11,7 @@ test('full flow tailors the page and keeps every section', async ({ page }) => {
   await expect(page.locator('[data-pitch]')).not.toBeEmpty();
   const ids = await page.locator('main > section').evaluateAll(s => s.map(e => e.id));
   expect(ids.slice(0, 4)).toEqual(['hero','careomni','olympus-vision','projects']);
-  expect(ids).toHaveLength(9);
+  expect(ids).toHaveLength(DEFAULT_SECTION_ORDER.length);
   await expect(page).toHaveURL(/\?for=backend&proof=production$/);
 });
 test('skip is offered on every question screen and reveals everything', async ({ page }) => {
@@ -88,7 +89,7 @@ test('result tags the matched sections; start over restores the default page', a
   await expect(page.locator('[data-match-tag]:not(:empty)')).toHaveCount(0);
   await expect(page).toHaveURL(/\/$/);
   const ids = await page.locator('main > section').evaluateAll(s => s.map(e => e.id));
-  expect(ids).toEqual(['hero', 'olympus-vision', 'careomni', 'projects', 'experience', 'certifications', 'skills', 'writing', 'contact']);
+  expect(ids).toEqual(['hero', 'olympus-vision', 'careomni', 'projects', 'experience', 'certifications', 'skills', 'writing', 'testimonials', 'contact']);
 });
 test('back from the result returns to the proof question with the default order', async ({ page }) => {
   await page.goto('/?for=backend&proof=production');

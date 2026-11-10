@@ -1,5 +1,6 @@
 import { expect, test } from 'vitest';
 import { COPY } from '../../src/content/copy';
+import { DEFAULT_SECTION_ORDER } from '../../src/content/quizConfig';
 import {
   answersToQuery,
   buildPitch,
@@ -15,16 +16,16 @@ const PROOFS: ProofPreference[] = ['production', 'certs', 'incidents', 'code'];
 
 test('incidents for cloud leads with Olympus then experience', () => {
   expect(orderSections({ focus: 'cloud', proof: 'incidents' })).toEqual(
-    ['hero','olympus-vision','experience','careomni','projects','certifications','skills','writing','contact']);
+    ['hero','olympus-vision','experience','careomni','projects','certifications','skills','writing','testimonials','contact']);
 });
 test('backend + production puts CareOmni before Olympus', () => {
   expect(orderSections({ focus: 'backend', proof: 'production' }).slice(1, 4)).toEqual(['careomni','olympus-vision','projects']);
 });
-test('every answer pair keeps all 9 sections exactly once, hero first, contact last', () => {
+test('every answer pair keeps every section exactly once, hero first, contact last', () => {
   for (const focus of FOCUSES)
     for (const proof of PROOFS) {
       const o = orderSections({ focus, proof });
-      expect(new Set(o).size).toBe(9); expect(o).toHaveLength(9);
+      expect(new Set(o).size).toBe(DEFAULT_SECTION_ORDER.length); expect(o).toHaveLength(DEFAULT_SECTION_ORDER.length);
       expect(o[0]).toBe('hero'); expect(o.at(-1)).toBe('contact');
     }
 });

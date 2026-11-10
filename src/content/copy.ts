@@ -36,6 +36,7 @@ export const COPY = {
     certifications: 'THE PAPER TRAIL… VERIFIED!',
     skills: 'THE TOOLBOX, NO PERCENTAGE BARS',
     writing: 'I ALSO WRITE THINGS!',
+    testimonials: "DON'T TAKE MY WORD FOR IT!",
     contact: 'YOUR MOVE. EMAIL ME!',
   } satisfies Record<SectionId, string>,
 
@@ -156,6 +157,11 @@ export const COPY = {
       { id: 'rollback', label: 'Roll back the last deploy', correct: false },
     ],
     fix: "The DNS record had been created by hand, outside Terraform, and the load balancer had no HTTPS listener either. I codified the ACM certificate, the 443 listener, the 80 to 443 redirect and the Route 53 alias in Terraform. The next account move can't repeat the outage.",
+  },
+
+  testimonials: {
+    allReviews: 'See all reviews on Upwork',
+    ratingLabel: (rating: number) => `Rated ${rating} out of 5`,
   },
 
   writing: {

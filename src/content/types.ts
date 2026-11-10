@@ -8,7 +8,20 @@ export type SectionId =
   | 'certifications'
   | 'skills'
   | 'writing'
+  | 'testimonials'
   | 'contact';
+
+export type Testimonial = {
+  /** A contiguous excerpt of the client's own words; "…" marks any cut. */
+  quote: string;
+  /** Who said it, generalised so private clients are not named. */
+  credit: string;
+  /** What the work was, as the review platform lists it. */
+  context: string;
+  source: 'Upwork' | 'LinkedIn';
+  /** Star rating out of 5, only where the platform shows one. */
+  rating?: number;
+};
 
 export type PrivateRepoNote = 'Private repo · walkthrough on request';
 

@@ -6,7 +6,7 @@ test.describe('without JavaScript', () => {
   test('all sections render in default order and the quiz is hidden', async ({ page }) => {
     await page.goto('/');
     const ids = await page.locator('main[data-sections] > section').evaluateAll((s) => s.map((e) => e.id));
-    expect(ids).toEqual(['hero', 'olympus-vision', 'careomni', 'projects', 'experience', 'certifications', 'skills', 'writing', 'contact']);
+    expect(ids).toEqual(['hero', 'olympus-vision', 'careomni', 'projects', 'experience', 'certifications', 'skills', 'writing', 'testimonials', 'contact']);
     await expect(page.locator('[data-quiz]')).toBeHidden();
     await expect(page.getByText('Private repo · walkthrough on request')).toBeVisible();
     await expect(page.getByText('Internship')).toBeVisible();
@@ -96,4 +96,21 @@ test('contact section shows the real photo and no Bitmoji, with a descriptive al
   await expect(page.locator('#contact')).not.toContainText('The real me');
   // Only the contact section carries the photo; the hero stays Bitmoji-only.
   await expect(page.locator('#hero img.contact-photo-image')).toHaveCount(0);
+});
+test('client testimonials sit just before contact, with honest credits and a link to all reviews', async ({ page }) => {
+  await page.goto('/?skip=1');
+  const cards = page.locator('#testimonials .testimonial');
+  await expect(cards).toHaveCount(3);
+  for (const card of await cards.all()) {
+    await expect(card.locator('blockquote')).not.toBeEmpty();
+    await expect(card.locator('figcaption')).not.toBeEmpty();
+  }
+  // Upwork reviews show their 5-star rating in a way screen readers can read.
+  await expect(page.locator('#testimonials [aria-label="Rated 5 out of 5"]')).toHaveCount(2);
+  await expect(page.locator('#testimonials a', { hasText: 'See all reviews on Upwork' })).toHaveAttribute(
+    'href',
+    'https://www.upwork.com/freelancers/~01f037b49074acf50b',
+  );
+  // Contract amounts and hourly rates from the review screenshots never appear.
+  await expect(page.locator('#testimonials')).not.toContainText('$');
 });

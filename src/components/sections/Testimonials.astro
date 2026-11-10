@@ -1,0 +1,94 @@
+---
+import Section from './Section.astro';
+import { COPY } from '../../content/copy';
+import { TESTIMONIALS } from '../../content/testimonials';
+import { SITE } from '../../config/site';
+
+const EXTERNAL_REL = 'noopener';
+const MAX_RATING = 5;
+// Small alternating tilts match the hand-placed sticker cards elsewhere on the page.
+const CARD_TILTS = [-1.5, 1, -0.5];
+---
+
+<Section id="testimonials">
+  <ul class="testimonial-grid">
+    {
+      TESTIMONIALS.map((testimonial, index) => (
+        <li>
+          <figure class="card testimonial" style={`--tilt: ${CARD_TILTS[index % CARD_TILTS.length]}deg`}>
+            {testimonial.rating && (
+              <p class="testimonial-rating" role="img" aria-label={COPY.testimonials.ratingLabel(testimonial.rating)}>
+                <span aria-hidden="true">{'★'.repeat(testimonial.rating)}{'☆'.repeat(MAX_RATING - testimonial.rating)}</span>
+              </p>
+            )}
+            <blockquote>
+              <p>“{testimonial.quote}”</p>
+            </blockquote>
+            <figcaption>
+              <span class="testimonial-credit">{testimonial.credit}</span>
+              <span class="testimonial-context">
+                {testimonial.source} · {testimonial.context}
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="testimonials-more">
+    <a href={SITE.links.upwork} rel={EXTERNAL_REL}>{COPY.testimonials.allReviews}</a>
+  </p>
+</Section>
+
+<style>
+  .testimonial-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--space-6);
+  }
+  .testimonial {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    border: 6px solid var(--color-navy);
+    transform: rotate(var(--tilt));
+  }
+  .testimonial-rating {
+    margin: 0;
+    color: var(--color-navy);
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+  }
+  .testimonial blockquote {
+    margin: 0;
+    flex: 1;
+  }
+  .testimonial blockquote p {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.55;
+  }
+  .testimonial figcaption {
+    display: grid;
+    gap: 2px;
+  }
+  .testimonial-credit {
+    font-family: var(--font-display);
+    font-weight: 800;
+  }
+  .testimonial-context {
+    color: var(--color-slate);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .testimonials-more {
+    margin: var(--space-6) 0 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+  }
+</style>

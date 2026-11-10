@@ -11,6 +11,7 @@ export const DEFAULT_SECTION_ORDER: SectionId[] = [
   'certifications',
   'skills',
   'writing',
+  'testimonials',
   'contact',
 ];
 
