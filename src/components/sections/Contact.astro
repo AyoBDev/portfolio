@@ -10,6 +10,7 @@ import { SITE } from '../../config/site';
 import { buildMailtoUrl } from '../../lib/mailto';
 import CopyEmailButton from '../contact/CopyEmailButton.astro';
 
+const cvFileName = SITE.cvPath.slice(1);
 const mailtoHref = buildMailtoUrl(SITE.email, SITE.mailSubject);
 const linkOrder = ['github', 'linkedin', 'upwork', 'medium'] as const;
 const PHOTO_SIZE_PX = 200;
@@ -32,6 +33,9 @@ const PHOTO_SIZE_PX = 200;
       <div class="contact-arrow"><Stroke kind="arrow" /></div>
       <div class="contact-actions">
         <Button href={mailtoHref} variant="primary">{COPY.buttons.email}</Button>
+        <Button href={SITE.cvPath} download={cvFileName} variant="secondary">
+          <span aria-hidden="true">↓ </span>{COPY.buttons.downloadCv}
+        </Button>
         <CopyEmailButton />
       </div>
       <h3 class="contact-links-heading">{COPY.contact.linksHeading}</h3>

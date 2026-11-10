@@ -122,3 +122,16 @@ test('education card lists the university leadership roles under their own headi
   await expect(card).toContainText('TIC 2.0 Technical Lead');
   await expect(card).toContainText('Huawei Student Club');
 });
+test('a Download CV button in the hero and contact sections serves the PDF', async ({ page, request }) => {
+  await page.goto('/?skip=1');
+  for (const section of ['#hero', '#contact']) {
+    const link = page.locator(section).getByRole('link', { name: 'Download CV' });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute('download', /\.pdf$/);
+  }
+  const href = await page.locator('#hero').getByRole('link', { name: 'Download CV' }).getAttribute('href');
+  const response = await request.get(href!);
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toContain('application/pdf');
+  expect((await response.body()).subarray(0, 5).toString()).toBe('%PDF-');
+});

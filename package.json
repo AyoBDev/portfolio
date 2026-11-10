@@ -16,7 +16,8 @@
     "lhci": "lhci autorun"
   },
   "dependencies": {
-    "astro": "^7.4.8"
+    "astro": "^7.4.8",
+    "pdfkit": "^0.17.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
@@ -24,6 +25,8 @@
     "@axe-core/playwright": "^4.14.0",
     "@lhci/cli": "^0.16.0",
     "@playwright/test": "^1.65.0",
+    "@types/pdfkit": "^0.17.7",
+    "pdfjs-dist": "^5.7.284",
     "typescript": "^6.0.3",
     "vitest": "^5.1.0"
   }

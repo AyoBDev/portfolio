@@ -1,14 +1,16 @@
 ---
 interface Props {
   href?: string;
-  variant: 'primary' | 'ghost';
+  variant: 'primary' | 'secondary' | 'ghost';
   type?: 'button';
+  /** For links: the file name the browser saves the target as. */
+  download?: string;
   [attribute: `data-${string}`]: string | undefined;
 }
 
-const { href, variant, type = 'button', ...extraAttributes } = Astro.props;
+const { href, variant, type = 'button', download, ...extraAttributes } = Astro.props;
 const Element = href ? 'a' : 'button';
-const elementProps = href ? { href } : { type };
+const elementProps = href ? { href, download } : { type };
 ---
 
 <Element class={`button button--${variant}`} {...elementProps} {...extraAttributes}>
@@ -30,6 +32,11 @@ const elementProps = href ? { href } : { type };
   .button--primary {
     background: var(--color-navy);
     color: var(--color-paper);
+  }
+  /* Between the two: a filled white pill, for the second most important action (the CV). */
+  .button--secondary {
+    background: var(--color-white);
+    color: var(--color-navy);
   }
   .button--ghost {
     background: transparent;

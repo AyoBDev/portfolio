@@ -45,6 +45,7 @@ export const COPY = {
     skip: 'Skip, show me everything',
     email: 'Email me',
     copyEmail: 'Copy email',
+    downloadCv: 'Download CV',
     copied: 'Copied',
     copyFallbackMac: 'Press ⌘+C to copy',
     copyFallbackOther: 'Press Ctrl+C to copy',
