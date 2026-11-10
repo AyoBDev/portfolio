@@ -47,6 +47,11 @@ test('four skill groups and education', () => {
   expect(SKILLS.map((g) => g.name)).toEqual(['Cloud', 'IaC & delivery', 'Networking', 'Backend']);
   expect(EDUCATION.grade).toBe('4.39 / 5.0');
 });
+test('the carpooling project credits its TIC 2.0 finalist result', () => {
+  const carpooling = MORE_PROJECTS.find((p) => p.name === 'UniIlorin Carpooling');
+  expect(carpooling?.summary).toContain('one of five finalists');
+  expect(carpooling?.tags[0]).toBe('Finalist');
+});
 test('education lists the university leadership roles', () => {
   expect(EDUCATION.activities.map((a) => a.group)).toEqual(['NATECSS student association', 'Huawei Student Club']);
   for (const activity of EDUCATION.activities) expect(activity.result.length).toBeGreaterThan(0);
