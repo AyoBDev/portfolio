@@ -19,6 +19,8 @@ export type FeaturedProject = {
   problem: string;
   built: string[];
   proof: string[];
+  /** Heading for the chip list: technologies are "Built with", design pieces are "Architecture". */
+  stackLabel: string;
   stack: string[];
   repo: { url: string } | { private: true; note: PrivateRepoNote };
   liveUrl?: string;

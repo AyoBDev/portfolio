@@ -57,7 +57,7 @@ const isOlympus = project.id === 'olympus-vision';
         <ul>{project.built.map((item) => <li>{item}</li>)}</ul>
         <h4>{labels.proof}</h4>
         <ul>{project.proof.map((item) => <li>{item}</li>)}</ul>
-        <h4>{labels.stack}</h4>
+        <h4>{project.stackLabel}</h4>
         <ul class="chips">{project.stack.map((item) => <li>{item}</li>)}</ul>
       </div>
       <div class="featured-visual">
@@ -154,7 +154,7 @@ const isOlympus = project.id === 'olympus-vision';
     }
     .featured-visual {
       position: sticky;
-      top: var(--space-6);
+      top: calc(var(--sticky-offset-top) + var(--space-6));
     }
   }
   .featured-card {

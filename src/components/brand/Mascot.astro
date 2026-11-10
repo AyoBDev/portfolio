@@ -20,7 +20,7 @@ const poseImage = poseImages[`/src/assets/mascot/${pose}.png`]?.default;
 <div class="mascot" data-mascot data-pose={pose}>
   {
     poseImage ? (
-      <Image src={poseImage} alt="" width={size} height={size} />
+      <Image src={poseImage} alt="" width={size} height={size} densities={[1, 2]} />
     ) : (
       <img src={placeholder.src} alt="" width={size} height={size} />
     )

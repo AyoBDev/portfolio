@@ -48,8 +48,17 @@ test.describe('keyboard + reduced motion', () => {
     await page.getByRole('button', { name: 'Cloud infrastructure' }).focus();
     await page.keyboard.press('Space');
     await expect(page.getByRole('heading', { name: 'What would convince you?' })).toBeFocused();
-    const dur = await page.locator('[data-step="proof"]').evaluate(e => getComputedStyle(e).transitionDuration);
-    expect(['0s', '0.00001s']).toContain(dur);
+    const ZERO_DURATIONS = ['0s', '0.00001s'];
+    const durationsOf = (selector: string) =>
+      page.locator(selector).first().evaluate((element) => {
+        const style = getComputedStyle(element);
+        return { animation: style.animationDuration, transition: style.transitionDuration };
+      });
+    const step = await durationsOf('[data-step="proof"]');
+    expect(ZERO_DURATIONS).toContain(step.animation);
+    expect(ZERO_DURATIONS).toContain(step.transition);
+    const mascot = await durationsOf('[data-step="proof"] [data-mascot]');
+    expect(ZERO_DURATIONS).toContain(mascot.animation);
   });
 });
 test('no axe violations on each quiz step', async ({ page }) => {

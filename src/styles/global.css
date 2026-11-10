@@ -1,8 +1,8 @@
 @import './tokens.css';
 
 /* Metric-adjusted stand-ins for the web fonts, so the swap when Poppins / Urbanist arrive
-   barely moves the layout (keeps layout shift near zero). Widths were measured against the real fonts (Arial is within about 1% for both);
-   the vertical overrides are approximations. */
+   barely moves the layout (keeps layout shift near zero). Widths are tuned to the real fonts
+   (Arial is within about 1% for both); the vertical overrides are approximations. */
 @font-face {
   font-family: 'Poppins Fallback';
   src: local('Arial');

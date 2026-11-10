@@ -38,10 +38,12 @@ const { label, tabs, live, cameras } = COPY.cutouts.olympus;
       linear-gradient(var(--color-grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
     background-size: 20px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
+    /* Pill, icon and name stack in their own rows, so the icon can never sit on top of the text.
+       The tile grows past its aspect ratio if the rows need more room. */
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    justify-items: start;
+    gap: 4px;
     padding: 10px;
   }
   .camera-tile.is-hero {
@@ -49,10 +51,10 @@ const { label, tabs, live, cameras } = COPY.cutouts.olympus;
     aspect-ratio: 16 / 7;
   }
   .camera-icon {
-    position: absolute;
-    inset: 50% auto auto 50%;
+    justify-self: center;
+    align-self: center;
     width: 40px;
-    transform: translate(-50%, -50%);
+    max-height: 100%;
     stroke: var(--color-navy-soft);
     stroke-width: 2;
     stroke-linejoin: round;

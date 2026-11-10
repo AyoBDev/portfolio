@@ -30,18 +30,30 @@ const mailtoHref = buildMailtoUrl(SITE.email, SITE.mailSubject);
     text-decoration: none;
     box-shadow: var(--shadow-bubble);
   }
+  /* Mobile pill floats over page content, so the ring is navy like the global focus style. */
+  .sticky-email-link:focus-visible {
+    outline: 3px solid var(--color-navy);
+    outline-offset: 3px;
+  }
   /* Desktop: a slim top bar, so it never sits on top of content. */
   @media (min-width: 900px) {
     .sticky-email {
       inset: 0 0 auto 0;
       display: flex;
+      align-items: center;
       justify-content: flex-end;
-      padding: var(--space-2) var(--space-edge);
+      /* Same token as the space reserved for the bar, so content offsets match it exactly. */
+      height: var(--sticky-offset-top);
+      padding: 0 var(--space-edge);
       background: var(--color-navy);
     }
     .sticky-email-link {
       padding: 4px var(--space-4);
       box-shadow: none;
+    }
+    /* Lime ring: visible against the navy bar, where the navy default would vanish. */
+    .sticky-email-link:focus-visible {
+      outline-color: var(--color-lime);
     }
   }
 </style>

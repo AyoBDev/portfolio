@@ -25,7 +25,6 @@ export const COPY = {
     credentialLine:
       'AWS Solutions Architect – Professional · Solution Engineer at an AWS Advanced Tier Partner',
     certBadgeLabel: 'Certified',
-    intro: `${SITE.name} is a ${SITE.title}. Two products shipped solo, three AWS and Huawei certifications, and I work ${SITE.location.toLowerCase()}.`,
   },
 
   bands: {
@@ -169,7 +168,6 @@ export const COPY = {
       problem: 'The problem',
       built: 'What I built',
       proof: 'Engineering proof',
-      stack: 'Stack',
       repo: 'Code on GitHub',
       stats: 'In production',
     },

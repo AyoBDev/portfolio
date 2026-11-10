@@ -25,6 +25,7 @@ export const FEATURED: FeaturedProject[] = [
       'Staging and production environments, with a CI/CD guide',
       'Fixed a DNS and HTTPS outage after an AWS account move, and codified the fix in Terraform',
     ],
+    stackLabel: 'Built with',
     stack: [
       'AWS IoT',
       'Kinesis Video Streams',
@@ -70,6 +71,7 @@ export const FEATURED: FeaturedProject[] = [
       'Background jobs and workers',
       'An adopt-vs-build decision log',
     ],
+    stackLabel: 'Architecture',
     stack: ['PostgreSQL', 'Background workers', 'Encryption service', 'Audit log', 'Automated tests'],
     repo: { private: true, note: 'Private repo · walkthrough on request' },
     // From the CareOmni pitch deck (clients, caregivers, shifts) and LinkedIn (payroll).

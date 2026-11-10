@@ -104,8 +104,10 @@ const { title, fixTitle, feedback } = COPY.incidentUi;
     font-weight: 700;
     color: var(--color-lime);
   }
+  /* Never display:none, even when empty: the live region must stay in the accessibility tree
+     so a later announcement is reliable. */
   .incident-feedback:empty {
-    display: none;
+    min-height: 0;
   }
   .incident-details {
     padding: var(--space-4);
