@@ -85,3 +85,14 @@ test('every mascot on the page uses a real Bitmoji pose, not the placeholder', a
   const poses = await page.locator('[data-mascot]').evaluateAll((els) => [...new Set(els.map((el) => el.getAttribute('data-pose')))].sort());
   expect(poses).toEqual(['celebrating', 'contact', 'thinking', 'wave']);
 });
+test('contact section shows a real photo beside the Bitmoji, with a descriptive alt', async ({ page }) => {
+  await page.goto('/?skip=1');
+  const photo = page.locator('#contact img.contact-photo-image');
+  await expect(photo).toHaveCount(1);
+  await expect(photo).toHaveAttribute('alt', 'Photo of Ayomikun Ayobami');
+  await photo.scrollIntoViewIfNeeded();
+  await expect.poll(() => photo.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
+  await expect(page.locator('#contact [data-mascot]')).toHaveCount(1);
+  // Only the contact section carries the photo; the hero stays Bitmoji-only.
+  await expect(page.locator('#hero img.contact-photo-image')).toHaveCount(0);
+});

@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Section from './Section.astro';
+import portrait from '../../assets/photo/ayomikun.jpg';
 import Mascot from '../brand/Mascot.astro';
 import Bubble from '../brand/Bubble.astro';
 import Button from '../brand/Button.astro';
@@ -11,13 +13,28 @@ import CopyEmailButton from '../contact/CopyEmailButton.astro';
 
 const mailtoHref = buildMailtoUrl(SITE.email, SITE.mailSubject);
 const linkOrder = ['github', 'linkedin', 'upwork', 'medium'] as const;
+const PHOTO_SIZE_PX = 160;
+const MASCOT_SIZE_PX = 180;
 ---
 
 <Section id="contact">
   <div class="contact">
     <div class="contact-mascot">
       <Bubble text={COPY.mascot.contact} />
-      <Mascot pose="contact" size={180} />
+      <div class="contact-faces">
+        <Mascot pose="contact" size={MASCOT_SIZE_PX} />
+        <figure class="contact-photo">
+          <Image
+            class="contact-photo-image"
+            src={portrait}
+            alt={COPY.contact.photoAlt}
+            width={PHOTO_SIZE_PX}
+            height={PHOTO_SIZE_PX}
+            densities={[1, 2]}
+          />
+          <figcaption class="contact-photo-caption">{COPY.contact.photoCaption}</figcaption>
+        </figure>
+      </div>
     </div>
     <div class="contact-body">
       <div class="contact-arrow"><Stroke kind="arrow" /></div>
@@ -57,6 +74,43 @@ const linkOrder = ['github', 'linkedin', 'upwork', 'medium'] as const;
     display: grid;
     justify-items: center;
     gap: var(--space-4);
+  }
+  /* Bitmoji and real photo side by side: the cartoon draws them in, the photo builds trust. */
+  .contact-faces {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  /* Both shrink on narrow phones so they stay side by side instead of stacking. */
+  .contact-faces :global([data-mascot] img) {
+    width: clamp(120px, 38vw, 180px);
+    height: auto;
+  }
+  .contact-photo {
+    margin: 0;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+  }
+  .contact-photo-image {
+    width: clamp(110px, 32vw, 160px);
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid var(--color-white);
+    box-shadow: 0 0 0 3px var(--color-navy), var(--shadow-sticker);
+    transform: rotate(3deg);
+  }
+  .contact-photo-caption {
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--color-navy);
+    color: var(--color-lime);
+    font-weight: 700;
+    font-size: 0.85rem;
+    transform: rotate(-2deg);
   }
   .contact-body {
     display: grid;
