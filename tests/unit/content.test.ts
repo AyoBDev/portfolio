@@ -5,6 +5,7 @@ import { CERTS } from '../../src/content/certifications';
 import { ARTICLES } from '../../src/content/articles';
 import { SKILLS } from '../../src/content/skills';
 import { COPY } from '../../src/content/copy';
+import { DENYLIST_SKIP_MESSAGE, findForbiddenTerms, loadDenylist } from '../support/denylist';
 
 test('careomni has no repo link and the private note', () => {
   const c = FEATURED.find((p) => p.id === 'careomni')!;
@@ -54,6 +55,12 @@ test('copy has a band line per section and a pitch per answer', () => {
 test('copy contains no placeholder or forbidden text', () => {
   const all = JSON.stringify({ COPY, FEATURED, MORE_PROJECTS, ROLES, ARTICLES, SKILLS, EDUCATION });
   expect(all).not.toMatch(/TODO|lorem|TBD/i);
-  expect(all).not.toMatch(/NV ?Best|[redacted]/i);
   expect(all).not.toContain('—');
 });
+
+const denylist = loadDenylist();
+test.skipIf(denylist.length === 0)('content contains no deny-listed terms', () => {
+  const all = JSON.stringify({ COPY, FEATURED, MORE_PROJECTS, ROLES, ARTICLES, SKILLS, EDUCATION });
+  expect(findForbiddenTerms(all, denylist)).toEqual([]);
+});
+if (denylist.length === 0) console.warn(DENYLIST_SKIP_MESSAGE);
