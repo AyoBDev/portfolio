@@ -71,7 +71,8 @@ export type Certification = {
   /** Issue month, formatted YYYY-MM. */
   issued: string;
   verifyUrl?: string;
-  badgeImage?: string;
+  /** The issuer's official badge artwork, imported from src/assets/badges. */
+  badgeImage?: ImageMetadata;
 };
 
 export type SkillGroup = {

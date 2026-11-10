@@ -62,3 +62,16 @@ test('Olympus demo video has English captions', async ({ page }) => {
   expect(res.status()).toBe(200);
   expect(await res.text()).toMatch(/^WEBVTT/);
 });
+test('AWS certifications show their official badge images, in the hero and the certifications list', async ({ page }) => {
+  await page.goto('/?skip=1');
+  const listBadges = page.locator('#certifications img.cert-badge-image');
+  await expect(listBadges).toHaveCount(2);
+  const heroBadge = page.locator('#hero img.hero-badge-image');
+  await expect(heroBadge).toHaveCount(1);
+  for (const img of [...(await listBadges.all()), heroBadge]) {
+    await img.scrollIntoViewIfNeeded();
+    await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
+    // The certificate name is already in text next to it, so the image is decorative.
+    await expect(img).toHaveAttribute('alt', '');
+  }
+});
