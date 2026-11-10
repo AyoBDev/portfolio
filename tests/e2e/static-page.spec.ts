@@ -78,21 +78,22 @@ test('AWS certifications show their official badge images, in the hero and the c
 test('every mascot on the page uses a real Bitmoji pose, not the placeholder', async ({ page }) => {
   await page.goto('/');
   const mascots = page.locator('[data-mascot] img');
-  expect(await mascots.count()).toBeGreaterThanOrEqual(4);
+  expect(await mascots.count()).toBeGreaterThanOrEqual(3);
   for (const img of await mascots.all()) {
     expect(await img.getAttribute('src')).not.toContain('placeholder');
   }
   const poses = await page.locator('[data-mascot]').evaluateAll((els) => [...new Set(els.map((el) => el.getAttribute('data-pose')))].sort());
-  expect(poses).toEqual(['celebrating', 'contact', 'thinking', 'wave']);
+  expect(poses).toEqual(['celebrating', 'thinking', 'wave']);
 });
-test('contact section shows a real photo beside the Bitmoji, with a descriptive alt', async ({ page }) => {
+test('contact section shows the real photo and no Bitmoji, with a descriptive alt', async ({ page }) => {
   await page.goto('/?skip=1');
   const photo = page.locator('#contact img.contact-photo-image');
   await expect(photo).toHaveCount(1);
   await expect(photo).toHaveAttribute('alt', 'Photo of Ayomikun Ayobami');
   await photo.scrollIntoViewIfNeeded();
   await expect.poll(() => photo.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
-  await expect(page.locator('#contact [data-mascot]')).toHaveCount(1);
+  await expect(page.locator('#contact [data-mascot]')).toHaveCount(0);
+  await expect(page.locator('#contact')).not.toContainText('The real me');
   // Only the contact section carries the photo; the hero stays Bitmoji-only.
   await expect(page.locator('#hero img.contact-photo-image')).toHaveCount(0);
 });

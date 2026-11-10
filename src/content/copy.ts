@@ -212,7 +212,6 @@ export const COPY = {
   contact: {
     linksHeading: 'Elsewhere',
     photoAlt: `Photo of ${SITE.name}`,
-    photoCaption: 'The real me',
     links: {
       github: 'GitHub',
       linkedin: 'LinkedIn',

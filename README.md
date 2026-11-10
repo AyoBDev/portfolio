@@ -31,7 +31,7 @@ Other commands:
 
 ## Adding images
 
-- **Bitmoji poses:** drop PNGs into `src/assets/mascot/`, named after the pose: `wave.png`, `thinking.png`, `pointing.png`, `celebrating.png`, `contact.png`. Any pose without a PNG falls back to the placeholder. No code change is needed.
+- **Bitmoji poses:** drop PNGs into `src/assets/mascot/`, named after the pose. The page uses `wave.png`, `thinking.png` and `celebrating.png`; the contact section shows a real photo from `src/assets/photo/` instead. Any pose without a PNG falls back to the placeholder. No code change is needed.
 - **Badge images:** put the files in `public/badges/` and set each certification's `badgeImage` (for example `/badges/aws-sap.png`) in `src/content/certifications.ts`. The field exists in the data, but the page does not display badge images yet; showing them needs a small change in `src/components/sections/Certifications.astro`.
 
 ## Changing the domain
