@@ -2,10 +2,13 @@
 
 /* Metric-adjusted stand-ins for the web fonts, so the swap when Poppins / Urbanist arrive
    barely moves the layout (keeps layout shift near zero). Widths are tuned to the real fonts
-   (Arial is within about 1% for both); the vertical overrides are approximations. */
+   (Arial is within about 1% for both); the vertical overrides are approximations.
+   Linux and Android don't ship Arial, so its metric twins (Liberation Sans, Arimo) come next;
+   without them the stand-in never applies there and the hero buttons jump when fonts load.
+   Roboto is the last resort for Android: not the same widths, but much closer than system-ui. */
 @font-face {
   font-family: 'Poppins Fallback';
-  src: local('Arial');
+  src: local('Arial'), local('Liberation Sans'), local('Arimo'), local('Roboto');
   size-adjust: 97%;
   ascent-override: 106%;
   descent-override: 35%;
@@ -13,7 +16,7 @@
 }
 @font-face {
   font-family: 'Urbanist Fallback';
-  src: local('Arial');
+  src: local('Arial'), local('Liberation Sans'), local('Arimo'), local('Roboto');
   size-adjust: 97%;
   ascent-override: 101%;
   descent-override: 25%;
