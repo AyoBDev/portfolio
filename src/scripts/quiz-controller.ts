@@ -17,6 +17,8 @@ import type { SectionId } from '../content/types';
 type StepName = 'intro' | 'focus' | 'proof' | 'result';
 
 const QUIZ_ACTIVE_CLASS = 'quiz-active';
+/** Set by the inline failsafe when it already revealed the full page; a late controller must not take over. */
+const QUIZ_TIMED_OUT_CLASS = 'quiz-timed-out';
 /** Tells the inline failsafe in Quiz.astro that the controller is running. */
 const QUIZ_READY_CLASS = 'quiz-ready';
 const SKIP_PARAM = 'skip';
@@ -179,7 +181,8 @@ function initQuiz(): void {
   elements.quiz.addEventListener('click', (event) => handleClick(elements, event));
 
   const params = new URLSearchParams(location.search);
-  if (params.get(SKIP_PARAM) === SKIP_VALUE) {
+  const failsafeAlreadyFired = document.documentElement.classList.contains(QUIZ_TIMED_OUT_CLASS);
+  if (failsafeAlreadyFired || params.get(SKIP_PARAM) === SKIP_VALUE) {
     setQuizActive(false);
     return;
   }

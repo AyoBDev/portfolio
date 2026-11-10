@@ -33,7 +33,10 @@ const questions = [
 
       root.classList.add('quiz-active');
       function revealPageUnlessReady() {
-        if (!root.classList.contains('quiz-ready')) root.classList.remove('quiz-active');
+        if (root.classList.contains('quiz-ready')) return;
+        // The marker tells a controller that loads late to behave like skip mode.
+        root.classList.add('quiz-timed-out');
+        root.classList.remove('quiz-active');
       }
       setTimeout(revealPageUnlessReady, CONTROLLER_TIMEOUT_MS);
       window.addEventListener('error', revealPageUnlessReady);

@@ -111,4 +111,19 @@ test.describe('failsafe when the quiz script does not run', () => {
     await expect(page.locator('main')).toBeVisible({ timeout: FAILSAFE_WAIT_MS });
     await expect(page.locator('#hero h1')).toBeVisible();
   });
+  test('controller that loads after the timeout never takes the page over', async ({ page }) => {
+    const LATE_LOAD_DELAY_MS = 3000;
+    await page.route('**/_astro/Quiz.astro*.js', async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, LATE_LOAD_DELAY_MS));
+      await route.continue();
+    });
+    await page.goto('/');
+    await expect(page.locator('main')).toBeVisible({ timeout: FAILSAFE_WAIT_MS });
+    // Give the late controller time to run, then confirm it left the page alone.
+    await page.waitForTimeout(LATE_LOAD_DELAY_MS + 1000);
+    await expect(page.locator('main')).toBeVisible();
+    await expect(page.locator('[data-quiz]')).toBeHidden();
+    await expect(page.locator('html')).not.toHaveClass(/quiz-active/);
+  });
 });
+
