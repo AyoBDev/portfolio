@@ -28,3 +28,10 @@ test('external article links are safe', async ({ page }) => {
   for (const a of await page.locator('#writing a[href^="https://medium.com"]').all())
     expect(await a.getAttribute('rel')).toContain('noopener');
 });
+test('featured projects link to their live site and verified certs link to Credly', async ({ page }) => {
+  await page.goto('/?skip=1');
+  const live = page.locator('#olympus-vision a', { hasText: 'Live site' });
+  await expect(live).toHaveAttribute('href', 'https://www.olympusvisions.com/');
+  await expect(page.locator('#careomni a', { hasText: 'Live site' })).toHaveCount(0);
+  await expect(page.locator('#certifications a[href^="https://www.credly.com/badges/"]')).toHaveCount(2);
+});

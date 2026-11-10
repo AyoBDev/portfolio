@@ -41,6 +41,7 @@ export const FEATURED: FeaturedProject[] = [
       'Terraform',
     ],
     repo: { url: `${GITHUB_ROOT}/cctv-cloud-storage` },
+    liveUrl: 'https://www.olympusvisions.com/',
   },
   {
     id: 'careomni',

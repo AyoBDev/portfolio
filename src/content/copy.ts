@@ -169,6 +169,7 @@ export const COPY = {
       built: 'What I built',
       proof: 'Engineering proof',
       repo: 'Code on GitHub',
+      live: 'Live site',
       stats: 'In production',
     },
   },

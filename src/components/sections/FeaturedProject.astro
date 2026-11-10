@@ -21,16 +21,26 @@ const isOlympus = project.id === 'olympus-vision';
     <header class="featured-header">
       <h3>{project.name}</h3>
       <p class="featured-tagline">{project.tagline}</p>
-      {
-        'url' in project.repo ? (
-          <a class="featured-repo" href={project.repo.url}>
-            {labels.repo}
-            <span class="visually-hidden">: {project.name}</span>
-          </a>
-        ) : (
-          <p class="featured-private">{project.repo.note}</p>
-        )
-      }
+      <div class="featured-links">
+        {
+          project.liveUrl && (
+            <a class="featured-repo" href={project.liveUrl} rel="noopener">
+              {labels.live}
+              <span class="visually-hidden">: {project.name}</span>
+            </a>
+          )
+        }
+        {
+          'url' in project.repo ? (
+            <a class="featured-repo" href={project.repo.url}>
+              {labels.repo}
+              <span class="visually-hidden">: {project.name}</span>
+            </a>
+          ) : (
+            <p class="featured-private">{project.repo.note}</p>
+          )
+        }
+      </div>
     </header>
 
     {
@@ -99,6 +109,11 @@ const isOlympus = project.id === 'olympus-vision';
     max-width: 48ch;
     font-size: 1.15em;
     font-weight: 600;
+  }
+  .featured-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
   }
   .featured-repo,
   .featured-private {
