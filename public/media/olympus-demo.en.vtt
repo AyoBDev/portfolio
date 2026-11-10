@@ -1,10 +1,10 @@
 WEBVTT
 
 00:00:00.000 --> 00:00:04.500
-If you want to see them on the system,
+This is the CCTV cloud storage,
 
 00:00:04.500 --> 00:00:09.000
-just connect the system to the camera.
+connecting the CCTV camera to AWS cloud.
 
 00:00:09.000 --> 00:00:15.000
 So, you are using a router and also the Raspberry Pi.
@@ -19,15 +19,15 @@ a camera, and a switch.
 00:00:23.000 --> 00:00:27.000
 So, it connects multiple cameras to the switch.
 
-00:00:27.000 --> 00:00:35.000
-Once it gets to the switch, it is pushed to the back end,
+00:00:27.000 --> 00:00:44.000
+Once it gets to the switch, it is pushed to the back end.
 
-00:00:35.000 --> 00:00:44.000
-and the organization can manage
-the different cameras on the front end.
+00:00:45.000 --> 00:00:51.000
+The organization can manage
+different cameras in the frontend.
 
-00:00:48.000 --> 00:00:58.000
-So, this is the camera.
+00:00:53.000 --> 00:00:58.000
+You can open the camera.
 
 00:00:58.000 --> 00:01:05.900
-And this is the front end.
+And this is the frontend.
