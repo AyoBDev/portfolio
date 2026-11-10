@@ -50,7 +50,8 @@ test('four skill groups and education', () => {
 test('copy has a band line per section and a pitch per answer', () => {
   expect(Object.keys(COPY.bands).sort()).toEqual([...DEFAULT_SECTION_ORDER].sort());
   expect(Object.keys(COPY.pitch.focus)).toHaveLength(4);
-  expect(Object.keys(COPY.pitch.proof)).toHaveLength(4);
+  expect(Object.keys(COPY.pitch.proof)).toHaveLength(5);
+  expect(Object.keys(COPY.quiz.proof.options)).toHaveLength(5);
   expect(Object.keys(COPY.diagram)).toHaveLength(8);
   expect(COPY.incident.options.filter((o) => o.correct)).toHaveLength(1);
 });

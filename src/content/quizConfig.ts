@@ -25,6 +25,7 @@ export const PROOF_PRIORITY: Record<ProofPreference, SectionId[]> = {
   certs: ['certifications', 'experience'],
   incidents: ['olympus-vision', 'experience'],
   code: ['olympus-vision', 'projects'],
+  clients: ['testimonials', 'experience'],
 };
 
 /** Which featured project leads when both are shown, based on what the recruiter hires for. */

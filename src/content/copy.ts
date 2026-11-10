@@ -4,7 +4,7 @@ import type { SectionId } from './types';
 // Every user-facing string lives here so it can be edited without touching components.
 // Name, title, email and links come from SITE and are not repeated.
 export type FocusId = 'cloud' | 'systems' | 'platform' | 'backend';
-export type ProofId = 'production' | 'certs' | 'incidents' | 'code';
+export type ProofId = 'production' | 'certs' | 'incidents' | 'code' | 'clients';
 export type DiagramNodeId =
   | 'camera'
   | 'edge'
@@ -70,6 +70,7 @@ export const COPY = {
         certs: 'Certifications',
         incidents: 'How I handle incidents',
         code: 'The code',
+        clients: 'What clients say',
       } satisfies Record<ProofId, string>,
     },
     resultTitle: "Here's your match",
@@ -97,6 +98,8 @@ export const COPY = {
         'I hold AWS Certified Solutions Architect – Professional and Associate, plus Huawei HCIA-Datacom.',
       incidents:
         'When an AWS account move took down my API with a DNS failure, I fixed it and then codified the DNS, certificate and HTTPS listener in Terraform so it cannot happen the same way again.',
+      clients:
+        'Clients keep coming back: an agency owner I have supported for several years, and 5-star Upwork reviews for delivering on time and solving complex API integrations.',
       code: 'The Olympus Vision repo is public, with 32 Terraform files split into modules and tests for the Lambda pipelines.',
     } satisfies Record<ProofId, string>,
   },

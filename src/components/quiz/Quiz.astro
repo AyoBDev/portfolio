@@ -226,6 +226,10 @@ const questions = [
     .quiz-options {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+    /* An odd last answer spans both columns so the grid doesn't end lopsided. */
+    .quiz-options > :last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
   }
   /* Big, chunky pill answers: a solid navy "ledge" that presses down when clicked. */
   .quiz-option {

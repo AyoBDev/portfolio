@@ -12,11 +12,15 @@ import {
 } from '../../src/lib/quiz';
 
 const FOCUSES: HiringFocus[] = ['cloud', 'systems', 'platform', 'backend'];
-const PROOFS: ProofPreference[] = ['production', 'certs', 'incidents', 'code'];
+const PROOFS: ProofPreference[] = ['production', 'certs', 'incidents', 'code', 'clients'];
 
 test('incidents for cloud leads with Olympus then experience', () => {
   expect(orderSections({ focus: 'cloud', proof: 'incidents' })).toEqual(
     ['hero','olympus-vision','experience','careomni','projects','certifications','skills','writing','testimonials','contact']);
+});
+test('clients puts the testimonials straight after the hero, then experience', () => {
+  expect(orderSections({ focus: 'platform', proof: 'clients' }).slice(0, 3)).toEqual(['hero', 'testimonials', 'experience']);
+  expect(parseAnswers('?for=platform&proof=clients')).toEqual({ focus: 'platform', proof: 'clients' });
 });
 test('backend + production puts CareOmni before Olympus', () => {
   expect(orderSections({ focus: 'backend', proof: 'production' }).slice(1, 4)).toEqual(['careomni','olympus-vision','projects']);

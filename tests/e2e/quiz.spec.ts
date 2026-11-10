@@ -14,6 +14,16 @@ test('full flow tailors the page and keeps every section', async ({ page }) => {
   expect(ids).toHaveLength(DEFAULT_SECTION_ORDER.length);
   await expect(page).toHaveURL(/\?for=backend&proof=production$/);
 });
+test('choosing "What clients say" leads with the client testimonials', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Show me why (30 sec)' }).click();
+  await page.getByRole('button', { name: 'Cloud infrastructure' }).click();
+  await page.getByRole('button', { name: 'What clients say' }).click();
+  await expect(page.locator('[data-pitch]')).toContainText(/clients/i);
+  const ids = await page.locator('main > section').evaluateAll((s) => s.map((e) => e.id));
+  expect(ids.slice(0, 2)).toEqual(['hero', 'testimonials']);
+  await expect(page).toHaveURL(/\?for=cloud&proof=clients$/);
+});
 test('skip is offered on every question screen and reveals everything', async ({ page }) => {
   await page.goto('/');
   for (const advance of [null, 'Show me why (30 sec)', 'Cloud infrastructure']) {
