@@ -91,7 +91,7 @@ export const COPY = {
     } satisfies Record<FocusId, string>,
     proof: {
       production:
-        'Both of my flagship products are sole-builder production systems: Olympus Vision on AWS, and CareOmni, which runs inside a live agency with 227 clients, 194 caregivers and 470 active shifts.',
+        'Both of my flagship products run in production: I was the backend and cloud engineer on Olympus Vision on AWS, and I built CareOmni solo. It runs inside a live agency with 227 clients, 194 caregivers and 470 active shifts.',
       certs:
         'I hold AWS Certified Solutions Architect – Professional and Associate, plus Huawei HCIA-Datacom.',
       incidents:

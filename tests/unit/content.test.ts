@@ -64,3 +64,12 @@ test.skipIf(denylist.length === 0)('content contains no deny-listed terms', () =
   expect(findForbiddenTerms(all, denylist)).toEqual([]);
 });
 if (denylist.length === 0) console.warn(DENYLIST_SKIP_MESSAGE);
+
+// Olympus Vision was a team build; Ayomikun was its backend and cloud engineer.
+test('Olympus Vision is never described as a solo build', () => {
+  const olympus = FEATURED.find((project) => project.id === 'olympus-vision');
+  const olympusText = JSON.stringify(olympus);
+  expect(olympusText).not.toMatch(/sole|solo/i);
+  expect(olympusText).toContain('Backend and cloud engineer');
+  expect(COPY.pitch.proof.production).not.toMatch(/sole-builder/i);
+});

@@ -20,7 +20,7 @@ export const FEATURED: FeaturedProject[] = [
       'RS256 JWT with Super Admin, Org Admin and Viewer roles',
     ],
     proof: [
-      'Sole builder, 150 commits, Mar–Aug 2026',
+      'Backend and cloud engineer, 150 commits, Mar–Aug 2026',
       'Terraform infrastructure as code: 32 files, split into modules',
       'Staging and production environments, with a CI/CD guide',
       'Fixed a DNS and HTTPS outage after an AWS account move, and codified the fix in Terraform',
