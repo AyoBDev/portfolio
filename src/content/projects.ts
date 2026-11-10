@@ -113,7 +113,7 @@ export const MORE_PROJECTS: ProjectCard[] = [
   {
     name: 'SabiWork',
     summary:
-      "Squad Hackathon 3.0 project, 196 commits in one week: AI job matching and payments for Nigeria's informal economy.",
+      "Shortlisted at GTBank's Squad Hackathon 3.0, one of Nigeria's biggest hackathons. AI job matching and payments for Nigeria's informal economy, built in 196 commits in one week.",
     tags: ['Hackathon', 'AI', 'Payments'],
     repoUrl: `${GITHUB_ROOT}/SabiWork`,
   },
