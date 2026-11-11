@@ -14,6 +14,14 @@ test('full flow tailors the page and keeps every section', async ({ page }) => {
   expect(ids).toHaveLength(DEFAULT_SECTION_ORDER.length);
   await expect(page).toHaveURL(/\?for=backend&proof=production$/);
 });
+test('a Solutions Engineer recruiter gets the solutions pitch', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Show me why (30 sec)' }).click();
+  await page.getByRole('button', { name: 'Solutions Engineer / pre-sales' }).click();
+  await page.getByRole('button', { name: 'What clients say' }).click();
+  await expect(page.locator('[data-pitch]')).toContainText('AWS Advanced Tier Partner');
+  await expect(page).toHaveURL(/\?for=solutions&proof=clients$/);
+});
 test('choosing "What clients say" leads with the client testimonials', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Show me why (30 sec)' }).click();
@@ -99,7 +107,7 @@ test('result tags the matched sections; start over restores the default page', a
   await expect(page.locator('[data-match-tag]:not(:empty)')).toHaveCount(0);
   await expect(page).toHaveURL(/\/$/);
   const ids = await page.locator('main > section').evaluateAll(s => s.map(e => e.id));
-  expect(ids).toEqual(['hero', 'olympus-vision', 'careomni', 'projects', 'experience', 'certifications', 'skills', 'writing', 'testimonials', 'contact']);
+  expect(ids).toEqual(['hero', 'olympus-vision', 'careomni', 'experience', 'testimonials', 'certifications', 'projects', 'skills', 'writing', 'contact']);
 });
 test('back from the result returns to the proof question with the default order', async ({ page }) => {
   await page.goto('/?for=backend&proof=production');

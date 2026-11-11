@@ -2,6 +2,16 @@ import type { SkillGroup } from './types';
 
 export const SKILLS: SkillGroup[] = [
   {
+    name: 'Solutions',
+    items: [
+      'AWS solution architecture',
+      'Cost estimation',
+      'Technical proposals',
+      'Requirements to specifications',
+      'Client delivery',
+    ],
+  },
+  {
     name: 'Cloud',
     items: [
       'AWS',

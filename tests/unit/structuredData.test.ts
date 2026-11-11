@@ -13,7 +13,7 @@ describe('buildPersonJsonLd', () => {
     const ld = buildPersonJsonLd(SITE, CERTS_FIXTURE, 'https://example.pages.dev') as any;
     expect(ld['@type']).toBe('Person');
     expect(ld.name).toBe('Ayomikun Ayobami');
-    expect(ld.jobTitle).toBe('Systems & Cloud Engineer');
+    expect(ld.jobTitle).toBe('Solutions Engineer');
     expect(ld.url).toBe('https://example.pages.dev/');
     expect(ld.sameAs).toEqual(expect.arrayContaining([SITE.links.github, SITE.links.linkedin, SITE.links.upwork, SITE.links.medium]));
     expect(ld.hasCredential.map((c: any) => c.name)).toContain('AWS Certified Solutions Architect – Professional');

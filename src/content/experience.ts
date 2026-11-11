@@ -9,6 +9,9 @@ export const ROLES: Role[] = [
     end: 'present',
     points: [
       'AWS Advanced Tier Partner',
+      'AWS architecture design for customers, with running-cost estimates',
+      'Business problem statements turned into technical specifications',
+      "Organised the 'ONE WITH AI: Powering EV Ecosystems with AWS' summit (June 2026)",
       'Terraform and CloudFormation across 20+ production client deployments',
       'dev/staging/prod environments with GitOps',
       'Provisioning time cut 50–70%',

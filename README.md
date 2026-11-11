@@ -2,7 +2,7 @@
 
 My portfolio site: **[portfolio.ayomikun939.workers.dev](https://portfolio.ayomikun939.workers.dev)**
 
-I'm a Systems & Cloud Engineer. The site opens with a 30-second quiz that asks what you're hiring for and what would convince you, then puts the most relevant work first. You can skip it at any time, and the full page works without JavaScript.
+I'm a Solutions Engineer: I design AWS architectures for clients, then build them. The site opens with a 30-second quiz that asks what you're hiring for and what would convince you, then puts the most relevant work first. You can skip it at any time, and the full page works without JavaScript.
 
 ## Built with
 

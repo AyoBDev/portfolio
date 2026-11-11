@@ -8,11 +8,11 @@ import {
 } from '../content/quizConfig';
 import type { SectionId } from '../content/types';
 
-export type HiringFocus = 'cloud' | 'systems' | 'platform' | 'backend';
+export type HiringFocus = 'solutions' | 'cloud' | 'systems' | 'platform' | 'backend';
 export type ProofPreference = 'production' | 'certs' | 'incidents' | 'code' | 'clients';
 export type Answers = { focus: HiringFocus; proof: ProofPreference };
 
-const HIRING_FOCUSES: readonly HiringFocus[] = ['cloud', 'systems', 'platform', 'backend'];
+const HIRING_FOCUSES: readonly HiringFocus[] = ['solutions', 'cloud', 'systems', 'platform', 'backend'];
 const PROOF_PREFERENCES: readonly ProofPreference[] = ['production', 'certs', 'incidents', 'code', 'clients'];
 
 const FEATURED_SECTIONS: readonly SectionId[] = ['olympus-vision', 'careomni'];

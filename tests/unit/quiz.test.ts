@@ -11,16 +11,23 @@ import {
   type ProofPreference,
 } from '../../src/lib/quiz';
 
-const FOCUSES: HiringFocus[] = ['cloud', 'systems', 'platform', 'backend'];
+const FOCUSES: HiringFocus[] = ['solutions', 'cloud', 'systems', 'platform', 'backend'];
 const PROOFS: ProofPreference[] = ['production', 'certs', 'incidents', 'code', 'clients'];
 
 test('incidents for cloud leads with Olympus then experience', () => {
   expect(orderSections({ focus: 'cloud', proof: 'incidents' })).toEqual(
-    ['hero','olympus-vision','experience','careomni','projects','certifications','skills','writing','testimonials','contact']);
+    ['hero','olympus-vision','experience','careomni','testimonials','certifications','projects','skills','writing','contact']);
 });
 test('clients puts the testimonials straight after the hero, then experience', () => {
   expect(orderSections({ focus: 'platform', proof: 'clients' }).slice(0, 3)).toEqual(['hero', 'testimonials', 'experience']);
   expect(parseAnswers('?for=platform&proof=clients')).toEqual({ focus: 'platform', proof: 'clients' });
+});
+test('solutions is a valid focus and leads with Olympus Vision', () => {
+  expect(parseAnswers('?for=solutions&proof=clients')).toEqual({ focus: 'solutions', proof: 'clients' });
+  expect(orderSections({ focus: 'solutions', proof: 'production' }).slice(1, 3)).toEqual(['olympus-vision', 'careomni']);
+});
+test('the page leads with the work, then the current role and client proof', () => {
+  expect(DEFAULT_SECTION_ORDER).toEqual(['hero', 'olympus-vision', 'careomni', 'experience', 'testimonials', 'certifications', 'projects', 'skills', 'writing', 'contact']);
 });
 test('backend + production puts CareOmni before Olympus', () => {
   expect(orderSections({ focus: 'backend', proof: 'production' }).slice(1, 4)).toEqual(['careomni','olympus-vision','projects']);

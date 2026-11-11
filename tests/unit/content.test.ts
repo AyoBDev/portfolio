@@ -43,9 +43,13 @@ test('four Medium articles, newest first', () => {
   expect(ARTICLES).toHaveLength(4);
   expect(ARTICLES.map((a) => a.date)).toEqual([...ARTICLES.map((a) => a.date)].sort().reverse());
 });
-test('four skill groups and education', () => {
-  expect(SKILLS.map((g) => g.name)).toEqual(['Cloud', 'IaC & delivery', 'Networking', 'Backend']);
+test('five skill groups, solutions first, and education', () => {
+  expect(SKILLS.map((g) => g.name)).toEqual(['Solutions', 'Cloud', 'IaC & delivery', 'Networking', 'Backend']);
   expect(EDUCATION.grade).toBe('4.39 / 5.0');
+});
+test('the Arthurite role shows the solutions work from the resume', () => {
+  const arthurite = ROLES.find((r) => r.org === 'Arthurite Integrated')!.points.join(' ');
+  for (const fact of ['running-cost estimates', 'technical specifications', 'ONE WITH AI']) expect(arthurite).toContain(fact);
 });
 test('the NOC internship lists its networking work, monitored with SolarWinds', () => {
   const noc = ROLES.find((r) => r.label === 'Internship')!;
@@ -61,7 +65,7 @@ test('education lists the university leadership roles', () => {
 });
 test('copy has a band line per section and a pitch per answer', () => {
   expect(Object.keys(COPY.bands).sort()).toEqual([...DEFAULT_SECTION_ORDER].sort());
-  expect(Object.keys(COPY.pitch.focus)).toHaveLength(4);
+  expect(Object.keys(COPY.pitch.focus)).toHaveLength(5);
   expect(Object.keys(COPY.pitch.proof)).toHaveLength(5);
   expect(Object.keys(COPY.quiz.proof.options)).toHaveLength(5);
   expect(Object.keys(COPY.diagram)).toHaveLength(8);

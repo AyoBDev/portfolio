@@ -89,7 +89,7 @@ export type Certification = {
 };
 
 export type SkillGroup = {
-  name: 'Cloud' | 'IaC & delivery' | 'Networking' | 'Backend';
+  name: 'Solutions' | 'Cloud' | 'IaC & delivery' | 'Networking' | 'Backend';
   items: string[];
 };
 

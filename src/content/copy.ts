@@ -3,7 +3,7 @@ import type { SectionId } from './types';
 
 // Every user-facing string lives here so it can be edited without touching components.
 // Name, title, email and links come from SITE and are not repeated.
-export type FocusId = 'cloud' | 'systems' | 'platform' | 'backend';
+export type FocusId = 'solutions' | 'cloud' | 'systems' | 'platform' | 'backend';
 export type ProofId = 'production' | 'certs' | 'incidents' | 'code' | 'clients';
 export type DiagramNodeId =
   | 'camera'
@@ -17,11 +17,11 @@ export type DiagramNodeId =
 
 export const COPY = {
   seo: {
-    description: `${SITE.name} is a remote Systems and Cloud Engineer building reliable AWS and Linux infrastructure.`,
+    description: `${SITE.name} is a remote Solutions Engineer who designs AWS architectures for clients and builds them, from Terraform to production backends.`,
   },
 
   hero: {
-    headline: 'I design and run the infrastructure behind real products.',
+    headline: 'I turn business problems into AWS architectures, then build them.',
     credentialLine:
       'AWS Solutions Architect – Professional · Solution Engineer at an AWS Advanced Tier Partner',
     certBadgeLabel: 'Certified',
@@ -58,6 +58,7 @@ export const COPY = {
     focus: {
       question: 'What are you hiring for?',
       options: {
+        solutions: 'Solutions Engineer / pre-sales',
         cloud: 'Cloud infrastructure',
         systems: 'Systems & networking',
         platform: 'Platform / DevOps',
@@ -83,6 +84,8 @@ export const COPY = {
   // The result pitch is one focus line plus one proof line.
   pitch: {
     focus: {
+      solutions:
+        'At an AWS Advanced Tier Partner I design AWS architectures for customers, estimate their running costs and write the technical proposals (20+ so far). Then I build what I propose: Terraform across 20+ production client deployments and a full camera-to-cloud platform.',
       cloud:
         'I run AWS infrastructure as code: Terraform and CloudFormation across 20+ production client deployments, and a full camera-to-cloud platform on ECS Fargate, S3, Kinesis Video Streams and Rekognition.',
       systems:
@@ -106,7 +109,7 @@ export const COPY = {
   },
 
   mascot: {
-    intro: "Hey! Hiring for cloud? Let me show you what I've built.",
+    intro: "Hey! Hiring a Solutions Engineer? Let me show you what I've built.",
     focus: 'Two quick questions and I will line up the right proof.',
     proof: 'Nearly there. What would make you pick up the phone?',
     result: 'That is your match. The rest of the page is right below.',

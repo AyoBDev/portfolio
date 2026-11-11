@@ -6,12 +6,13 @@ export const DEFAULT_SECTION_ORDER: SectionId[] = [
   'hero',
   'olympus-vision',
   'careomni',
-  'projects',
+  // Solutions roles hire on the current client-facing job and what clients say, so both come early.
   'experience',
+  'testimonials',
   'certifications',
+  'projects',
   'skills',
   'writing',
-  'testimonials',
   'contact',
 ];
 
@@ -30,6 +31,7 @@ export const PROOF_PRIORITY: Record<ProofPreference, SectionId[]> = {
 
 /** Which featured project leads when both are shown, based on what the recruiter hires for. */
 export const FOCUS_LEAD: Record<HiringFocus, 'olympus-vision' | 'careomni'> = {
+  solutions: 'olympus-vision',
   cloud: 'olympus-vision',
   systems: 'olympus-vision',
   platform: 'olympus-vision',
