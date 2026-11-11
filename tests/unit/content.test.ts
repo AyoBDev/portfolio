@@ -49,7 +49,9 @@ test('five skill groups, solutions first, and education', () => {
 });
 test('the Arthurite role shows the solutions work from the resume', () => {
   const arthurite = ROLES.find((r) => r.org === 'Arthurite Integrated')!.points.join(' ');
-  for (const fact of ['running-cost estimates', 'technical specifications', 'ONE WITH AI']) expect(arthurite).toContain(fact);
+  for (const fact of ['running-cost estimates', 'technical specifications', 'Powering Mobility & EV Ecosystems', 'eSwap OS', 'EV cost comparator'])
+    expect(arthurite).toContain(fact);
+  expect(FEATURED.find((p) => p.id === 'olympus-vision')!.proof.join(' ')).toContain('ONE WITH AI');
 });
 test('the NOC internship lists its networking work, monitored with SolarWinds', () => {
   const noc = ROLES.find((r) => r.label === 'Internship')!;

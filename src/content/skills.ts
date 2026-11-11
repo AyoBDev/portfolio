@@ -25,6 +25,7 @@ export const SKILLS: SkillGroup[] = [
       'Route 53',
       'CloudFront',
       'Bedrock',
+      'Amplify',
       'SageMaker',
     ],
   },

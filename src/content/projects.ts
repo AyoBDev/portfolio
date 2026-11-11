@@ -24,6 +24,7 @@ export const FEATURED: FeaturedProject[] = [
       'Terraform infrastructure as code: 32 files, split into modules',
       'Staging and production environments, with a CI/CD guide',
       'Fixed a DNS and HTTPS outage after an AWS account move, and codified the fix in Terraform',
+      'Demoed live at the ONE WITH AI summit (June 2026) as a fleet and charging-station surveillance solution',
     ],
     stackLabel: 'Built with',
     stack: [
