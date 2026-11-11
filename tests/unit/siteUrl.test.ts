@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 
-const DEFAULT_URL = 'https://ayomikun-ayobami.pages.dev';
+const DEFAULT_URL = 'https://portfolio.ayomikun939.workers.dev';
 
 async function loadSiteUrl(): Promise<string> {
   vi.resetModules();
@@ -15,7 +15,7 @@ beforeEach(() => {
 });
 afterEach(() => vi.unstubAllEnvs());
 
-test('defaults to the pages.dev address', async () => {
+test('defaults to the workers.dev address', async () => {
   expect(await loadSiteUrl()).toBe(DEFAULT_URL);
 });
 test('PUBLIC_SITE_URL overrides the default', async () => {

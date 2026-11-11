@@ -31,3 +31,11 @@
 **Choice:** `src/lib/cv/buildCvDocument.ts` turns the site content into a CV model, `renderCvPdf.ts` draws it with PDFKit, and `src/pages/Ayomikun-Ayobami-CV.pdf.ts` writes it to `dist/` on every build. Tests extract the PDF text with pdf.js, like an ATS would, and check order, page count and the privacy deny-list.
 
 **Why:** one source of truth for the site and the CV, no extra runtime on the page, and nothing to remember to regenerate.
+
+## 2026-11-11 - Hosting: Cloudflare Workers static assets instead of Pages
+
+**Need:** the project was created as a Cloudflare Worker. With no config, Cloudflare's auto-setup adds `@astrojs/cloudflare`, which prerenders inside the Workers runtime, where PDFKit can't load its fonts, so the build failed on the CV route.
+
+**Options:** (1) keep the adapter and rewrite the CV generator for the Workers runtime: more code, for a site that has no server logic; (2) recreate the project on Pages: works, but Cloudflare now points new projects at Workers; (3) add `wrangler.jsonc` that serves `dist/` as static assets. Verified with `wrangler deploy --dry-run` (wrangler 4.160): it uploads the built files and adds no adapter.
+
+**Choice:** option 3. The site stays a plain static build, and the default site URL is now `https://portfolio.ayomikun939.workers.dev`. This replaces the Pages hosting note above.

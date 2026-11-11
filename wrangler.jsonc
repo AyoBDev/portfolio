@@ -1,0 +1,9 @@
+// Cloudflare deploys the already-built static site in dist/ as Workers static assets.
+// Having this file stops Cloudflare's automatic setup from adding the Astro Workers adapter,
+// which builds pages inside the Workers runtime, where the CV's PDF generator can't run.
+// "name" must match the Worker's name in the Cloudflare dashboard.
+{
+  "name": "portfolio",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "./dist" }
+}

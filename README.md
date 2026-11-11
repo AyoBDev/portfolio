@@ -1,6 +1,6 @@
 # Ayomikun Ayobami: portfolio
 
-My portfolio site: **[ayomikun-ayobami.pages.dev](https://ayomikun-ayobami.pages.dev)**
+My portfolio site: **[portfolio.ayomikun939.workers.dev](https://portfolio.ayomikun939.workers.dev)**
 
 I'm a Systems & Cloud Engineer. The site opens with a 30-second quiz that asks what you're hiring for and what would convince you, then puts the most relevant work first. You can skip it at any time, and the full page works without JavaScript.
 
@@ -8,7 +8,7 @@ I'm a Systems & Cloud Engineer. The site opens with a 30-second quiz that asks w
 
 - [Astro](https://astro.build), static output, no client framework
 - Under 300 lines of vanilla TypeScript for the quiz, layered on server-rendered HTML
-- Hosted on Cloudflare Pages
+- Hosted on Cloudflare Workers as static assets
 
 ## Quality checks
 
