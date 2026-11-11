@@ -67,6 +67,13 @@ export type ProjectCard = {
   repoUrl: string;
 };
 
+/** A photo of the work in a role, shown on the site only (the CV stays text-only for ATS parsing). */
+export type RolePhoto = {
+  src: ImageMetadata;
+  alt: string;
+  caption: string;
+};
+
 export type Role = {
   org: string;
   title: string;
@@ -76,6 +83,7 @@ export type Role = {
   /** End month formatted YYYY-MM, or 'present'. */
   end: string | 'present';
   points: string[];
+  photo?: RolePhoto;
 };
 
 export type Certification = {

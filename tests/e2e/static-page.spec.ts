@@ -135,3 +135,12 @@ test('a Download CV button in the hero and contact sections serves the PDF', asy
   expect(response.headers()['content-type']).toContain('application/pdf');
   expect((await response.body()).subarray(0, 5).toString()).toBe('%PDF-');
 });
+test('the Arthurite role shows the ONE WITH AI stage photo with a caption, loaded lazily', async ({ page }) => {
+  await page.goto('/?skip=1');
+  const figure = page.locator('#experience figure.timeline-photo');
+  await expect(figure).toHaveCount(1);
+  await expect(figure.locator('img')).toHaveAttribute('alt', /presenting/i);
+  await expect(figure.locator('img')).toHaveAttribute('loading', 'lazy');
+  await expect(figure.locator('figcaption')).toContainText('ONE WITH AI');
+  await expect(figure.locator('xpath=ancestor::li[contains(@class, "timeline-item")]')).toContainText('Arthurite Integrated');
+});

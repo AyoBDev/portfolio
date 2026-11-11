@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Section from './Section.astro';
 import { COPY } from '../../content/copy';
 import { ROLES, EDUCATION } from '../../content/experience';
@@ -25,6 +26,12 @@ import { formatMonthRange } from '../../lib/dates';
                 <li>{point}</li>
               ))}
             </ul>
+          )}
+          {role.photo && (
+            <figure class="timeline-photo">
+              <Image src={role.photo.src} alt={role.photo.alt} widths={[370, 740]} sizes="(min-width: 1024px) 480px, 100vw" loading="lazy" />
+              <figcaption>{role.photo.caption}</figcaption>
+            </figure>
           )}
         </li>
       ))
@@ -100,6 +107,22 @@ import { formatMonthRange } from '../../lib/dates';
   }
   .timeline-item h3 {
     font-size: clamp(20px, 1rem + 0.8vw, 28px);
+  }
+  .timeline-photo {
+    margin: var(--space-2) 0 0;
+    max-width: 480px;
+  }
+  .timeline-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius-md);
+  }
+  .timeline-photo figcaption {
+    margin-top: var(--space-2);
+    font-size: 0.9rem;
+    color: var(--color-slate);
   }
   .timeline-dates,
   .education-years {

@@ -1,4 +1,5 @@
 import type { Education, Role } from './types';
+import oneWithAiStagePhoto from '../assets/photo/one-with-ai-stage.jpg';
 
 // Newest first. The NOC internship overlaps the Arthurite role, hence its label.
 export const ROLES: Role[] = [
@@ -22,6 +23,11 @@ export const ROLES: Role[] = [
       'CloudWatch observability',
       '20+ technical proposals',
     ],
+    photo: {
+      src: oneWithAiStagePhoto,
+      alt: 'Ayomikun on stage presenting the eSwap OS AWS architecture diagram, titled "AWS Architecture: Multi-Tenant From Day One"',
+      caption: 'Presenting the multi-tenant AWS architecture of eSwap OS at ONE WITH AI, Lagos, June 2026.',
+    },
   },
   {
     org: 'University of Ilorin network operations centre',
