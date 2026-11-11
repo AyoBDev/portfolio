@@ -19,6 +19,6 @@ export const SKILLS: SkillGroup[] = [
     ],
   },
   { name: 'IaC & delivery', items: ['Terraform', 'CloudFormation', 'Docker', 'Kubernetes', 'GitHub Actions'] },
-  { name: 'Networking', items: ['TCP/IP', 'OSPF', 'VLANs', 'DNS', 'DHCP', 'SolarWinds', 'HCIA-Datacom'] },
+  { name: 'Networking', items: ['TCP/IP', 'OSPF', 'VLANs', 'DNS', 'DHCP', 'SolarWinds', 'Ubiquiti', 'Cisco', 'HCIA-Datacom'] },
   { name: 'Backend', items: ['Node.js / TypeScript', 'Python', 'PostgreSQL', 'Redis'] },
 ];

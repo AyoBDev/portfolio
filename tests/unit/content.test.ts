@@ -51,6 +51,8 @@ test('the NOC internship lists its networking work, monitored with SolarWinds', 
   const noc = ROLES.find((r) => r.label === 'Internship')!;
   expect(noc.points.length).toBeGreaterThanOrEqual(6);
   expect(noc.points.join(' ')).toContain('SolarWinds');
+  expect(noc.points.join(' ')).toContain('50,000');
+  expect(noc.points.join(' ')).toContain('Ubiquiti');
   expect(SKILLS.find((g) => g.name === 'Networking')!.items).toEqual(expect.arrayContaining(['SolarWinds', 'VLANs']));
 });
 test('education lists the university leadership roles', () => {

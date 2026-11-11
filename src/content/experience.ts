@@ -25,10 +25,11 @@ export const ROLES: Role[] = [
     start: '2026-03',
     end: '2026-08',
     points: [
+      'Campus-wide network for about 50,000 students and staff',
       'Network monitoring with SolarWinds',
       'Troubleshooting user and department outages',
       'VLAN, OSPF and static routing configuration',
-      'Switch port and Wi-Fi access point configuration',
+      'Switch and Wi-Fi access point configuration, mostly Ubiquiti with some Cisco',
       'Firewall rules and ACLs',
       'IP addressing, DHCP and DNS',
       'Cabling, patch panels and termination',
